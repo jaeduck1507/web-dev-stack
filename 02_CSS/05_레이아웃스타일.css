@@ -104,3 +104,143 @@
 .radius2 {
   border-radius: 50%;
 }
+
+/* box-sizing */
+.box {
+  width: 300px;
+  height: 200px;
+  border: 10px solid;
+  background-color: lightcoral;
+  padding: 20px;
+  margin: 10px;
+}
+.box-content {
+  /* 길이 + padding + border */
+  box-sizing: content-box;
+}
+.box-border {
+  /* 모두 포함해 300px 200px */
+  box-sizing: border-box;
+}
+
+/* display */
+.display {
+  background-color: pink;
+  padding: 10px;
+  margin: 5px;
+  width: 150px;
+  height: 70px;
+}
+
+.display-inline {
+  display: inline;
+}
+
+.display-block {
+  display: block;
+}
+
+.display-inline-block {
+  display: inline-block;
+}
+
+/* float */
+.float {
+  width: 80px;
+  height: 80px;
+  margin: 5px;
+  background-color: skyblue;
+  text-align: center;
+  line-height: 80px;
+  float: left;
+}
+
+/* position */
+#outer {
+  position: relative;
+  width: 400px;
+  height: 200px;
+  background-color: #f4f4f4;
+  overflow: auto;
+}
+.position-box {
+  width: 100px;
+  height: 100px;
+}
+
+#relative {
+  /* 현재 본인의 위치에서 계산 */
+  background-color: orange;
+  position: relative;
+  top: -10px;
+  left: 50px;
+  /* top, bottom, left, right */
+}
+
+#absolute {
+  background-color: green;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+#fixed {
+  background-color: red;
+  position: fixed;
+  right: 20px;
+  top: 30px;
+}
+#sticky {
+  background-color: blue;
+  position: sticky;
+  top: 30px;
+}
+
+/* visibility */
+.visibility {
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+  background-color: lightgray;
+  display: inline-block;
+}
+
+#vis2 {
+  visibility: visible;
+}
+
+#vis1 {
+  visibility: hidden;
+}
+#dis1 {
+  display: none;
+}
+
+#z-outer {
+  width: 200px;
+  height: 200px;
+  background-color: #ddd;
+  position: relative;
+}
+
+.z-index {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  opacity: 0.8;
+}
+#z-index1 {
+  background-color: red;
+  z-index: 3;
+  top: 20px;
+  left: 20px;
+}
+#z-index2 {
+  background-color: green;
+  z-index: 1;
+  top: 40px;
+  left: 40px;
+}
+#z-index3 {
+  background-color: blue;
+  z-index: 9999;
+}

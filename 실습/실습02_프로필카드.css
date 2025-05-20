@@ -1,0 +1,46 @@
+body {
+  background-color: rgb(89, 28, 150);
+}
+
+.card {
+  margin: auto;
+  margin-top: 20px;
+}
+
+#profile {
+  width: 400px;
+  height: 500px;
+  border: 2px solid white;
+  border-radius: 5%;
+}
+
+#photo {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background-image: url(panda.png);
+  background-size: cover;
+}
+
+#name {
+  text-align: center;
+  color: white;
+  font-size: 2em;
+}
+
+.linkbox {
+  width: 85%;
+  height: 60px;
+  border: 2px solid white;
+  text-align: center;
+  line-height: 60px;
+  color: white;
+  font-size: 20px;
+  display: block;
+  text-decoration: none;
+}
+.linkbox:hover {
+  background: white;
+  color: black;
+  font-weight: bold;
+}
