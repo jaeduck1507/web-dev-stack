@@ -1,0 +1,77 @@
+/* max-width는 데스크탑 기준 */
+
+.response-color {
+  background-color: lightblue;
+}
+@media (max-width: 1000px) {
+  /* 최대 1000px까지 반영 */
+  .response-color {
+    background-color: blue;
+  }
+}
+@media (max-width: 600px) {
+  /* 최대 600px까지 반영 */
+  .response-color {
+    background-color: yellow;
+  }
+}
+
+/* min-width는 모바일 기준 */
+.response-color2 {
+  background-color: coral;
+}
+
+@media (min-width: 600px) {
+  .response-color2 {
+    background-color: hotpink;
+  }
+}
+@media (min-width: 1000px) {
+  /* 최소 600부터 반영 */
+  .response-color2 {
+    background-color: blue;
+  }
+}
+
+/* flex 레이아웃 */
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.flex-container .item {
+  background-color: dodgerblue;
+  display: flex;
+  height: 80px;
+}
+
+@media (min-width: 600px) {
+  .flex-container {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .flex-container .item {
+    flex: 1;
+  }
+}
+
+/* Grid 레이아웃 */
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+.grid-container .item {
+  background-color: lightpink;
+  height: 80px;
+}
+@media (min-width: 600px) {
+  .grid-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1200px) {
+  .grid-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
