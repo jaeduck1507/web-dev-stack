@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>조건문</title>
+  </head>
+  <body>
+    <h1>조건문</h1>
+    <h2>1. if / else</h2>
+    <script>
+      /*
+            if(조건) {
+                조건이 true
+            } else {
+                조건이 false 
+            }
+            
+        */
+      let age = 18;
+      if (age > 19) {
+        console.log("성인");
+      } else {
+        console.log("미성년자");
+      }
+
+      //   삼항 연산자 : 조건 ? 조건이 true : 조건이 false
+      age = 20;
+      const result = age > 19 ? "성인" : "미성년자";
+      console.log(result);
+    </script>
+    <h2>2. else if</h2>
+    <script>
+      /*
+            if(조건1) {
+                조건1  true
+            } else if (조건2) {
+                (조건1이 false이면서)조건2  true
+            } else {
+                모든 조건이 false 
+            }
+        */
+      //    20세 이상이면 성인, 14세 이상이면 청소년,
+      // 8살 이상이면 어린이, 그외에는 유아
+      //   age = prompt("나이를 입력해주세요");
+
+      if (age >= 20) {
+        console.log("성인");
+      } else if (age >= 14) {
+        console.log("청소년");
+      } else if (age >= 8) {
+        console.log("어린이");
+      } else {
+        console.log("유아");
+      }
+
+      const result2 =
+        age >= 20
+          ? "성인"
+          : age >= 14
+          ? "청소년"
+          : age >= 8
+          ? "어린이"
+          : "유아";
+      console.log(result2);
+    </script>
+
+    <h2>3. switch</h2>
+    <script>
+      /*
+            switch(데이터) {
+                case 조건A(값):
+                    조건A가 true
+                    break;
+                case 조건B(값):
+                    조건B가 true
+                    break;
+                default:
+                    모든 조건이 false
+            }
+        */
+      //   const number = prompt("숫자를 입력하세요");
+      number = 10;
+      // number 값이 짝수이면, 홀수이면 홀수, 그게 아니면 숫자가 아닙니다
+      let result3;
+
+      switch (number % 2) {
+        case 0:
+          result3 = "짝수";
+          break;
+        case 1:
+          result3 = "홀수";
+          break;
+        default:
+          result3 = "숫자가 아닙니다";
+      }
+      console.log(result3);
+    </script>
+
+    <h2>4. 중첩 if</h2>
+    <script>
+      //조건문 안에 조건 문을 넣은 형태
+      // 아이디가 user1, 비밀번호가 1234 인 경우만 "로그인 성공"
+      // 비밀번호가 틀리면 "비밀번호 오류" , 아이디가 틀리면 "아이디 오류"
+
+      const correct_id = "user1";
+      const correct_pwd = "1234";
+
+      //   const id = prompt("아이디를 입력하세요");
+      const id = "user1";
+      const pwd = "1234";
+      if (id === correct_id) {
+        //   const pwd = prompt("비밀번호를 입력하세요");
+        if (pwd === correct_pwd) {
+          console.log("로그인 성공");
+        } else {
+          console.log("비밀번호 오류");
+        }
+      } else if (id === "") {
+        console.log("아이디 입력 x");
+      } else {
+        console.log("아이디 오류");
+      }
+    </script>
+
+    <h2>5. break가 없는 switch</h2>
+    <script>
+      const fruit = "banana";
+
+      switch (fruit) {
+        case "apple":
+          console.log("사과");
+          break;
+        case "orange":
+          console.log("오랜지");
+          break;
+        case "banana":
+          console.log("바나나");
+          break;
+        case "kiwi":
+          console.log("키위");
+          break;
+      }
+    </script>
+  </body>
+</html>
