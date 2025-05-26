@@ -79,6 +79,29 @@
           } else {
             console.log("겨울");
           }
+
+          switch (month) {
+            case 3:
+            case 4:
+            case 5:
+              console.log("봄");
+              break;
+            case 6:
+            case 7:
+            case 8:
+              console.log("여름");
+              break;
+            case 9:
+            case 10:
+            case 11:
+              console.log("가을");
+              break;
+            case 12:
+            case 1:
+            case 2:
+              console.log("겨울");
+              break;
+          }
         </script>
       </li>
 
@@ -108,7 +131,7 @@
           // Q7: 여기에 코드를 작성하세요
           // const num = 1;
           const num = Number(prompt("숫자를 입력하세요"));
-          let result = "";
+          let result;
           switch (num) {
             case 1:
               result = "월요일";
@@ -135,6 +158,11 @@
               result = "잘못입력";
           }
           console.log(result);
+          // 배열
+
+          const days = ["월", "화", "수", "목", "금", "토", "일"];
+          let result10 = days[num - 1];
+          console.log(`${result10 !== undefined ? result10 + "요일" : ""}`);
         </script>
       </li>
 
