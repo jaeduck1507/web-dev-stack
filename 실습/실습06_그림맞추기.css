@@ -1,0 +1,59 @@
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+p {
+  font-size: 1.4rem;
+}
+main {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0;
+}
+.box {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+#imgBox {
+  gap: 30px;
+  margin-bottom: 30px;
+}
+#imgBox img {
+  background-color: red;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+}
+
+.clickBox {
+  width: 150px;
+  height: 60px;
+  background-color: blue;
+  text-align: center;
+  line-height: 60px;
+  border-radius: 15px;
+  font-size: 25px;
+  font-weight: bold;
+  box-sizing: border-box;
+}
+#click {
+  background-color: coral;
+  color: navy;
+  cursor: pointer;
+}
+#reset {
+  background-color: navy;
+  color: coral;
+  cursor: pointer;
+}
