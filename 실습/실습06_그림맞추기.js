@@ -7,6 +7,7 @@ imgSrcList = [];
 for (const i of img) {
   imgSrcList.push(i.getAttribute("src"));
 }
+
 let count = 0;
 click.addEventListener("click", (e) => {
   count++;
@@ -21,8 +22,10 @@ click.addEventListener("click", (e) => {
     randomIdxList[0] === randomIdxList[1] &&
     randomIdxList[1] === randomIdxList[2]
   ) {
-    ifWin.textContent = "승리하셨습니다.";
-    click.setAttribute("disabled", "true");
+    // click.setAttribute("disabled", "true");
+    // click.setAttribute("disabled", "disabled");
+    click.disabled = true;
+    ifWin.classList.remove("visible");
   }
 });
 
@@ -30,8 +33,9 @@ reset.addEventListener("click", (e) => {
   count = 0;
   click.textContent = `Click`;
   click.removeAttribute("disabled");
-  ifWin.textContent = "";
+  ifWin.classList.add("visible");
   for (let i = 0; i < img.length; i++) {
     img[i].setAttribute("src", imgSrcList[i]);
   }
+  // location.reload();
 });

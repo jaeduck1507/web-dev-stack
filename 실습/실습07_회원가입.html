@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>회원가입</title>
+    <link rel="stylesheet" href="실습07_회원가입.css" />
+  </head>
+  <body>
+    <h1>회원가입</h1>
+    <form method="Post" action="">
+      <section id="info">
+        <input
+          type="text"
+          name="id"
+          id="id"
+          placeholder="아이디를 입력해주세요"
+        />
+        <p id="idText">영문자로 시작하고 영문자와 숫자 조합으로 4~12자 이내</p>
+        <input
+          type="password"
+          name="pwd"
+          id="pwd"
+          placeholder="비밀번호를 입력해주세요"
+        />
+        <p id="pwdText">영문자, 숫자, 특수문자 조합으로 8~15자 이내</p>
+        <input
+          type="password"
+          name="pwdIsSame"
+          id="pwdIsSame"
+          placeholder="비밀번호를 다시 한 번 입력해주세요"
+        />
+        <p id="pwdIsSameText">위 비밀번호와 동일하게</p>
+        <input
+          type="text"
+          name="name"
+          id="koname"
+          placeholder="이름을 입력해주세요"
+        />
+        <p id="konameText">한글 2자 이상</p>
+        <input
+          type="text"
+          name="email"
+          id="email"
+          placeholder="이메일을 입력해주세요"
+        />
+        <p id="emailText">이메일 형식</p>
+        <input
+          type="text"
+          name="callNum"
+          id="callNum"
+          placeholder="전화번호를 입력해주세요"
+        />
+        <p id="callNumText">전화번호 형식</p>
+      </section>
+      <section id="buttonList">
+        <input
+          type="submit"
+          class="allnotcorrect"
+          id="newB"
+          disabled
+          value="회원가입"
+        />
+        <input type="reset" id="cancel" value="취소" />
+      </section>
+    </form>
+
+    <script src="실습07_회원가입.js"></script>
+  </body>
+</html>
