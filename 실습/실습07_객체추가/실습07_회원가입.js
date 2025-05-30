@@ -12,8 +12,8 @@ const emailText = document.querySelector("#emailText");
 const callNumText = document.querySelector("#callNumText");
 const newB = document.querySelector("#newB");
 const cancel = document.querySelector("#cancel");
-checkList = [false, false, false, false, false, false]; // 각 입력 부분 완성 되어있는지 확인
 
+// 사용자 정보 객체 생성
 const idObj = {
   content: id,
   text: idText,
@@ -62,8 +62,11 @@ const callNumObj = {
   textContent: "전화번호 형식",
 };
 
+const objList = [idObj, pwdObj, pwdIsSameObj, konameObj, emailObj, callNumObj]; // 객체 배열 생성
+
+// 입력 이벤트 핸들러
 const checkHandler = (e, obj, n) => {
-  checkList[n] = false;
+  obj.check = false;
 
   if (e.target.value) {
     if (obj.content.id !== pwdIsSameObj.content.id) {
@@ -71,7 +74,7 @@ const checkHandler = (e, obj, n) => {
         obj.text.innerHTML = "OK";
         obj.text.classList.add("green");
         obj.text.classList.remove("red");
-        checkList[n] = true;
+        obj.check = true;
       } else {
         obj.text.innerHTML = obj.textContent;
         obj.text.classList.add("red");
@@ -80,12 +83,12 @@ const checkHandler = (e, obj, n) => {
     } else {
       if (
         pwdObj.content.value === e.target.value &&
-        checkList[n - 1] === true
+        objList[n - 1].check === true
       ) {
         obj.text.innerHTML = "OK";
         obj.text.classList.add("green");
         obj.text.classList.remove("red");
-        checkList[n] = true;
+        obj.check = true;
       } else {
         obj.text.innerHTML = obj.textContent;
         obj.text.classList.add("red");
@@ -99,12 +102,12 @@ const checkHandler = (e, obj, n) => {
   }
   if (obj.content.id === pwdObj.content.id) {
     if (pwdIsSameObj.content.value !== "") {
-      checkList[n + 1] = false;
-      if (pwdIsSameObj.content.value === e.target.value && checkList[1]) {
+      objList[n + 1].check = false;
+      if (pwdIsSameObj.content.value === e.target.value && objList[n].check) {
         pwdIsSameObj.text.innerHTML = "OK";
         pwdIsSameObj.text.classList.add("green");
         pwdIsSameObj.text.classList.remove("red");
-        checkList[n + 1] = true;
+        objList[n + 1].check = true;
       } else {
         pwdIsSameObj.text.innerHTML = pwdIsSameObj.textContent;
         pwdIsSameObj.text.classList.add("red");
@@ -115,9 +118,10 @@ const checkHandler = (e, obj, n) => {
   clickJoin();
 };
 
+// 회원 가입 버튼 활성화 조건 (모든 입력을 정확하게 입력했을때)
 const clickJoin = () => {
-  for (const i of checkList) {
-    if (!i) {
+  for (const i of objList) {
+    if (!i.check) {
       newB.setAttribute("disabled", "disabled");
       newB.setAttribute("style", "background-color: darkgray;;");
       break;
@@ -128,52 +132,34 @@ const clickJoin = () => {
   }
 };
 
-id.addEventListener("input", (e) => {
-  checkHandler(e, idObj, 0);
-});
+// 입력 이벤트 처리
+for (let i = 0; i < objList.length; i++) {
+  objList[i].content.addEventListener("input", (e) => {
+    checkHandler(e, objList[i], i);
+  });
+}
 
-pwd.addEventListener("input", (e) => {
-  checkHandler(e, pwdObj, 1);
-});
-
-pwdIsSame.addEventListener("input", (e) => {
-  checkHandler(e, pwdIsSameObj, 2);
-});
-
-koname.addEventListener("input", (e) => {
-  checkHandler(e, konameObj, 3);
-});
-
-email.addEventListener("input", (e) => {
-  checkHandler(e, emailObj, 4);
-});
-
-callNum.addEventListener("input", (e) => {
-  checkHandler(e, callNumObj, 5);
-});
-
+// 초기화 이벤트 처리
 cancel.addEventListener("click", () => {
-  idText.innerHTML = "영문자로 시작하고 영문자와 숫자 조합으로 4~12자 이내";
-  idText.classList.remove("green");
-  idText.classList.remove("red");
+  for (const i of objList) {
+    i.text.innerHTML = i.textContent;
+    i.text.classList.remove("green");
+    i.text.classList.remove("red");
+    i.check = false;
+  }
+  clickJoin();
+});
 
-  pwdText.innerHTML = "영문자, 숫자, 특수문자 조합으로 8~15자 이내";
-  pwdText.classList.remove("green");
-  pwdText.classList.remove("red");
+newB.addEventListener("click", () => {
+  localStorage.setItem(
+    id.value,
+    JSON.stringify({
+      pwd: pwd.value,
+      koname: koname.value,
+      email: email.value,
+      callNum: callNum.value,
+    })
+  );
 
-  pwdIsSameText.innerHTML = "위 비밀번호와 동일하게";
-  pwdIsSameText.classList.remove("green");
-  pwdIsSameText.classList.remove("red");
-
-  konameText.innerHTML = "이름을 입력해주세요";
-  konameText.classList.remove("green");
-  konameText.classList.remove("red");
-
-  emailText.innerHTML = "이메일을 입력해주세요";
-  emailText.classList.remove("green");
-  emailText.classList.remove("red");
-
-  callNumText.innerHTML = "전화번호를 입력해주세요";
-  callNumText.classList.remove("green");
-  callNumText.classList.remove("red");
+  location.href = `http://${location.host}/실습/실습07_객체추가/실습08_로그인.html`;
 });
