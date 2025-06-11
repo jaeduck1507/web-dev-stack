@@ -1,45 +1,369 @@
 /*
     JOIN
     - 두 개 이상의 테이블에서 데이터를 조회하고자 할 때 사용되는 구문
-    - 조회 결과는 하나의 결과물으로 나옴
-    
-    - 관계형 데이터 베이스는 최소한의 데이터로 각각의 테이블에 담고 있음(중복을 최소화하기 위해 최대한 쪼개서 관리함)
-    부서 데이터는 부서 테이블, 사원 데이터는 사원 테이블,
-    만약 어떤 사원이 어떤 부서에 속해있는지 부서명과 같이 조회하고 싶다면?
-    
-    => 즉 관계형 데이터베이스에서 SQL문을 이용한 테이블 간에 "관계"를 맺어 원하는 데이터를 조회하는 방법
-    
+    - 조회 결과는 하나의 결과물(RESULT SET)으로 나옴
+
+    - 관계형 데이터베이스는 최소한의 데이터로 각각의 테이블에 담고 있음
+       (중복을 최소화하기 위해 최대한 쪼개서 관리함)
+      부서 데이터는 부서 테이블, 사원 데이터는 사원 테이블, ...
+
+      만약 어떤 사원이 어떤 부서에 속해있는지 부서명과 같이 조회하고 싶다면?
+
+      => 즉, 관계형 데이터베이스에서 SQL문을 이용한 테이블 간에 
+                    "관계"를 맺어 원하는 데이터를 조회하는 방법
+
     "오라클 구문"과 "ANSI 구문"
     ANSI(미국국립표준협회 == 산업표준을 제정하는 단체)
-*/
 
+*/
 /*
     등가 조인(EQUAL JOIN) / 내부 조인(INNER/NATURAL JOIN)
-    - 연결 시키는 컬럼의 값이 일치하는 행들만 조인되서 조회
-    
+    - 연결시키는 컬럼의 값이 일치하는 행들만 조인되서 조회
+
     오라클 구문
-    SELECT 컬럼,컬럼,...
+    SELECT 컬럼, 컬럼, ...
     FROM 테이블1, 테이블2
     WHERE 테이블1.컬럼 = 테이블2.컬럼;
-    
+
     ANSI 구문
-    SELECT 컬럼, 컬럼,...
+    SELECT 컬럼, 컬럼, ...
     FROM 테이블1
-    JOIN 테이블2 ON (테이블1.컬럼 = 테이블2.컬럼)
-    - FROM 절에 기준이 되는 테이블 기술
-    - JOIN 절에서 같이 조회하고자 하는 테이블을 기술 후 매칭시킬 컬럼에 대한 조건을 기술(USING 또는 ON)
-                --> 연결에 사용하는 컬럼명이 같은 경우 USING(컬럼명)
+        JOIN 테이블2 ON (테이블1.컬럼 = 테이블2.컬럼);
+    - FROM 절에서 기준이 되는 테이블 기술
+    - JOIN 절에서 같이 조회하고자 하는 테이블을 기술 후 매칭시킬 
+        컬럼에 대한 조건을 기술 (USING 또는 ON)
+         --> 연결에 사용하는 컬럼명이 같은 경우 USING(컬럼명) 
 */
--- EMPLOYEE, DEPARTMENT 조인해서 사번(EMP_ID), 사원명(EMP_NAME), 부서코드(DEPT_CODE), 부서명(DEPT_TITLE) 조회
-
-SELECT EMP_ID,EMP_NAME,DEPT_CODE
-FROM EMPLOYEE;
-
-SELECT * FROM DEPARTMENT; -- DEPT_ID, DEPT_TITLE
+-- EMPLOYEE, DEPARTMENT 조인해서 
+-- 사번(EMP_ID), 사원명(EMP_NAME), 
+-- 부서코드(DEPT_CODE), 부서명(DEPT_TITLE) 조회
+SELECT EMP_ID, EMP_NAME, DEPT_CODE FROM EMPLOYEE;
+SELECT DEPT_ID, DEPT_TITLE FROM DEPARTMENT; -- DEPT_ID, DEPT_TITLE
+-- 오라클 구문
 SELECT EMP_ID, EMP_NAME, DEPT_CODE, DEPT_TITLE
 FROM EMPLOYEE, DEPARTMENT
 WHERE DEPT_CODE = DEPT_ID;
 
+-- ANSI 구문
 SELECT EMP_ID, EMP_NAME, DEPT_CODE, DEPT_TITLE
+FROM EMPLOYEE 
+    JOIN DEPARTMENT ON (DEPT_CODE = DEPT_ID);
+
+-- 사번(EMP_ID), 사원명(EMP_NAME), 직급코드(JOB_CODE), 직급명(JOB_NAME)
+-- 테이블 : EMPLOYEE, JOB
+-- 연결할 두 컬럼이 같은 경우
+-- 1. 테이블명을 이용
+-- 오라클 구문
+SELECT EMP_ID, EMP_NAME, JOB.JOB_CODE, JOB_NAME
+FROM EMPLOYEE, JOB 
+WHERE EMPLOYEE.JOB_CODE = JOB.JOB_CODE;
+
+-- 2. 테이블에 별칭을 부여해서 이용
+-- ANSI 구문
+SELECT EMP_ID, EMP_NAME, E.JOB_CODE, JOB_NAME 
+FROM EMPLOYEE E
+    JOIN JOB J ON (E.JOB_CODE = J.JOB_CODE);
+
+-- 컬럼명이 같은 경우는 USING 사용 추천!
+SELECT EMP_ID, EMP_NAME, JOB_CODE, JOB_NAME 
 FROM EMPLOYEE
-JOIN DEPARTMENT ON(DEPT_CODE = DEPT_ID);
+    JOIN JOB USING (JOB_CODE);
+
+-- 자연조인(NATURAL JOIN) : 각 테이블마다 동일한 컬럼이 한 개만 존재할 경우 -> 추천X
+SELECT EMP_ID, EMP_NAME, JOB_CODE, JOB_NAME 
+FROM EMPLOYEE 
+    NATURAL JOIN JOB;
+
+-- 직급이 대리인 사원의 
+-- 사번(EMP_ID), 이름(EMP_NAME), 직급명(JOB_NAME), 급여(SALARY) 조회
+SELECT EMP_ID, EMP_NAME, JOB_NAME, SALARY 
+FROM EMPLOYEE 
+    JOIN JOB USING (JOB_CODE)
+WHERE JOB_NAME = '대리';
+
+-- 부서가 인사관리부인 사원들의 사번, 이름, 보너스 조회
+SELECT EMP_ID, EMP_NAME, BONUS, DEPT_CODE, DEPT_TITLE
+FROM EMPLOYEE
+    JOIN DEPARTMENT ON (DEPT_CODE = DEPT_ID)
+WHERE DEPT_TITLE = '인사관리부';
+-- DEPARTMENT랑 LOCATION 참고해서 
+-- 전체 부서의 부서코드, 부서명, 지역코드, 지역명 조회
+SELECT DEPT_ID, DEPT_TITLE, LOCATION_ID FROM DEPARTMENT;
+SELECT LOCAL_CODE, NATIONAL_CODE, LOCAL_NAME FROM LOCATION;
+
+SELECT DEPT_ID, DEPT_TITLE, LOCATION_ID, LOCAL_NAME 
+FROM DEPARTMENT JOIN LOCATION ON (LOCATION_ID = LOCAL_CODE);
+
+-- 부서가 총무부가 아닌 사원들의 사원명, 급여 조회
+SELECT EMP_NAME, SALARY, DEPT_TITLE
+FROM EMPLOYEE 
+    JOIN DEPARTMENT ON (DEPT_ID = DEPT_CODE)
+WHERE DEPT_TITLE != '총무부';
+
+/*
+    포괄 조인 / 외부 조인 (OUTER JOIN)
+    - 두 테이블 간의 JOIN 시 일치하지 않는 행도 포함시켜서 조회가 가능
+    - 단, 반드시 기준이 되는 테이블(컬럼)을 지정해야 한다 
+*/
+-- 사원명, 부서명 조회
+SELECT EMP_NAME, DEPT_TITLE
+FROM EMPLOYEE 
+    LEFT JOIN DEPARTMENT ON (DEPT_ID = DEPT_CODE);
+-- 기준 삼는 테이블의 반대 테이블의 컬럼 뒤에 (+)
+SELECT EMP_NAME, DEPT_TITLE 
+FROM EMPLOYEE, DEPARTMENT 
+WHERE DEPT_ID(+) = DEPT_CODE;
+
+-- RIGHT JOIN
+SELECT EMP_NAME, DEPT_TITLE
+FROM DEPARTMENT 
+    RIGHT JOIN EMPLOYEE ON (DEPT_ID = DEPT_CODE);
+
+-- FULL JOIN = LEFT + RIGHT
+SELECT EMP_NAME, DEPT_TITLE
+FROM DEPARTMENT 
+    FULL JOIN EMPLOYEE ON (DEPT_ID = DEPT_CODE);
+
+/*
+    비등가 조인(NON EQUAL JOIN)
+    - 매칭시킬 컬럼에 대한 조건 작성시 '='(등호)를 사용하지 않는 조인문
+        --> 값의 범위에 포함되는 행들을 연결하는 방식
+    - ANSI 구문으로는 JOIN ON으로만 사용가능! (USING 사용 불가)
+*/
+-- 사원명, 급여, 급여레벨 조회 (ON BETWEEN 사용)
+SELECT EMP_NAME, SALARY, SAL_LEVEL
+FROM EMPLOYEE 
+    JOIN SAL_GRADE ON (SALARY BETWEEN MIN_SAL AND MAX_SAL);
+
+SELECT SAL_LEVEL, MIN_SAL, MAX_SAL FROM SAL_GRADE;
+
+/*
+    자체 조인(SELF JOIN)
+    - 같은 테이블을 다시 한번 조인하는 경우 (자기 자신과 조인) -> 대댓글 
+*/
+-- 사원사번, 사원명, 사원부서코드, 사수사번, 사수명, 사수부서코드 조회
+SELECT EMP_ID, EMP_NAME, DEPT_CODE, MANAGER_ID FROM EMPLOYEE; -- 사원
+SELECT EMP_ID, EMP_NAME, DEPT_CODE FROM EMPLOYEE; -- 사수
+
+SELECT 
+    E.EMP_ID 사번, E.EMP_NAME 사원명, E.DEPT_CODE 사원부서코드, 
+    M.EMP_ID 사수사번, M.EMP_NAME 사수명, M.DEPT_CODE 사수부서코드
+FROM EMPLOYEE E
+    JOIN EMPLOYEE M ON (E.MANAGER_ID = M.EMP_ID);
+
+/*
+    카테시안곱(CATESIAN PRODUCT) / 교차 조인(CROSS JOIN)
+    - 조인되는 모든 테이블의 각 행들이 서로 모두 매핑된 데이터가 검색 (곱집합)
+    - 두 테이블의 행들이 모두 곱해진 행들의 조합이 출력 
+        -> 방대한 데이터 출력으로 과부하
+*/
+SELECT EMP_NAME, DEPT_TITLE 
+FROM EMPLOYEE 
+    CROSS JOIN DEPARTMENT; -- 23 X 9
+
+SELECT * FROM EMPLOYEE; -- 23
+SELECT * FROM DEPARTMENT; -- 9
+
+/*
+    다중 JOIN
+    - 여러 개의 테이블을 조인하는 경우
+*/
+-- 사원명, 부서명, 직급명 조회
+-- EMPLOYEE, DEPARTMENT, JOB
+SELECT EMP_NAME, DEPT_CODE, JOB_CODE FROM EMPLOYEE;
+SELECT DEPT_ID, DEPT_TITLE FROM DEPARTMENT;
+SELECT JOB_CODE, JOB_NAME FROM JOB;
+
+SELECT EMP_NAME, DEPT_TITLE, JOB_NAME 
+FROM EMPLOYEE 
+    JOIN DEPARTMENT ON (DEPT_CODE = DEPT_ID)
+    JOIN JOB USING(JOB_CODE);
+
+-- 국가명, 지역명, 직급명, 부서명, 사원명, 급여, 급여등급 조회
+-- NATIONAL, LOCATION, JOB, DEPARTMENT, EMPLOYEE, SAL_GRADE
+SELECT EMP_NAME, SALARY, DEPT_CODE, JOB_CODE FROM EMPLOYEE;
+SELECT JOB_CODE, JOB_NAME FROM JOB;
+SELECT SAL_LEVEL, MIN_SAL, MAX_SAL FROM SAL_GRADE;
+SELECT DEPT_ID, DEPT_TITLE, LOCATION_ID FROM DEPARTMENT;
+SELECT LOCAL_CODE, NATIONAL_CODE, LOCAL_NAME FROM LOCATION;
+SELECT NATIONAL_CODE, NATIONAL_NAME FROM NATIONAL;
+
+
+SELECT 
+    NATIONAL_NAME, LOCAL_NAME, 
+    JOB_NAME, DEPT_TITLE, EMP_NAME, SALARY, SAL_LEVEL
+FROM EMPLOYEE 
+    LEFT JOIN JOB USING (JOB_CODE)
+    LEFT JOIN SAL_GRADE ON (SALARY BETWEEN MIN_SAL AND MAX_SAL)
+    LEFT JOIN DEPARTMENT ON (DEPT_ID = DEPT_CODE)
+    LEFT JOIN LOCATION ON (LOCATION_ID = LOCAL_CODE)
+    LEFT JOIN NATIONAL USING (NATIONAL_CODE);
+
+-- 1. 직급이 대리이면서 ASIA 지역에서 근무하는 
+--    직원들의 사번, 직원명, 직급명, 부서명, 근무지역, 급여 조회
+SELECT EMP_ID, EMP_NAME, JOB_NAME, DEPT_TITLE, LOCAL_NAME, SALARY
+FROM EMPLOYEE 
+    JOIN JOB USING(JOB_CODE)
+    JOIN DEPARTMENT ON (DEPT_CODE = DEPT_ID)
+    JOIN LOCATION ON (LOCATION_ID = LOCAL_CODE)
+WHERE JOB_NAME = '대리' AND LOCAL_NAME LIKE 'ASIA%';
+
+-- 2. 70년대생 이면서 여자이고, 성이 전씨인
+--    직원들의 직원명, 주민번호, 부서명, 직급명 조회
+SELECT EMP_NAME, EMP_NO, DEPT_TITLE, JOB_NAME
+FROM EMPLOYEE 
+    JOIN DEPARTMENT ON (DEPT_CODE = DEPT_ID)
+    JOIN JOB USING (JOB_CODE)
+WHERE EMP_NO LIKE '7_____-2%' AND EMP_NAME LIKE '전%';
+
+-- 3. 보너스를 받는 직원들의 직원명, 보너스, 연봉, 부서명, 근무지역 조회 
+--    (단, 부서 배치 안된 사원들도 출력)
+SELECT EMP_NAME, BONUS, SALARY * 12, DEPT_TITLE, LOCAL_NAME
+FROM EMPLOYEE 
+    LEFT JOIN DEPARTMENT ON (DEPT_CODE = DEPT_ID)
+    LEFT JOIN LOCATION ON (LOCATION_ID = LOCAL_CODE)
+WHERE BONUS IS NOT NULL;
+
+-- 4. 각 부서별 평균 급여를 조회하여 부서명, 평균 급여 조회 
+--    (단, 부서 배치 안된 사원들의 평균도 같이)
+SELECT 
+    NVL(DEPT_TITLE, '부서없음') 부서, 
+    TO_CHAR(ROUND(AVG(SALARY)), '999,999,999') 평균급여
+FROM EMPLOYEE 
+    LEFT JOIN DEPARTMENT ON (DEPT_CODE = DEPT_ID)
+GROUP BY DEPT_TITLE;
+
+-- 5. 각 부서별 총 급여의 합이 1000만원 이상인 부서명, 급여의 합 조회
+SELECT DEPT_TITLE, SUM(SALARY)
+FROM EMPLOYEE 
+    JOIN DEPARTMENT ON (DEPT_CODE = DEPT_ID)
+GROUP BY DEPT_TITLE
+HAVING SUM(SALARY) >= 10000000;
+
+-- 6. 사번, 직원명, 직급명, 급여 등급, 구분 조회
+--    이때 구분은 급여 등급이 S1, S2인 경우 '고급', 
+--    S3, S4인 경우 '중급', S5, S6인 경우 '초급'
+SELECT 
+    EMP_ID, EMP_NAME, JOB_NAME, SAL_LEVEL,
+    CASE WHEN SAL_LEVEL IN ('S1', 'S2') THEN '고급'
+         WHEN SAL_LEVEL IN ('S3', 'S4') THEN '중급'
+         WHEN SAL_LEVEL IN ('S5', 'S6') THEN '초급'
+    END 구분
+FROM EMPLOYEE
+    JOIN JOB USING(JOB_CODE)
+    JOIN SAL_GRADE ON (SALARY BETWEEN MIN_SAL AND MAX_SAL);
+
+-- 7. 보너스를 받지 않는 직원들 중 직급 코드가 J4 또는 J7인 
+--    직원들의 직원명, 직급명, 급여 조회
+SELECT EMP_NAME, JOB_NAME, SALARY
+FROM EMPLOYEE
+    JOIN JOB USING(JOB_CODE)
+WHERE BONUS IS NULL AND JOB_CODE IN ('J4', 'J7');
+
+-- 8. 부서가 있는 직원들의 직원명, 직급명, 부서명, 근무 지역 조회
+SELECT EMP_NAME, JOB_NAME, DEPT_TITLE, LOCAL_NAME
+FROM EMPLOYEE 
+    LEFT JOIN JOB USING(JOB_CODE)
+    LEFT JOIN DEPARTMENT ON (DEPT_ID = DEPT_CODE)
+    LEFT JOIN LOCATION ON (LOCATION_ID = LOCAL_CODE)
+WHERE DEPT_CODE IS NOT NULL;
+
+-- 9. 해외영업팀에 근무하는 직원들의 직원명, 직급명, 부서코드, 부서명 조회
+SELECT EMP_NAME, JOB_NAME, DEPT_CODE, DEPT_TITLE
+FROM EMPLOYEE 
+    JOIN JOB USING(JOB_CODE)
+    JOIN DEPARTMENT ON (DEPT_CODE = DEPT_ID)
+WHERE DEPT_TITLE LIKE '해외영업%';
+
+-- 10. 이름에 '형'자가 들어있는 직원들의 사번, 직원명, 직급명 조회
+SELECT EMP_ID, EMP_NAME, JOB_NAME 
+FROM EMPLOYEE 
+    JOIN JOB USING(JOB_CODE)
+WHERE EMP_NAME LIKE '%형%';
+
+SELECT 
+    EMP_ID, EMP_NAME, DEPT_CODE, JOB_CODE, SALARY, EMP_NO,
+    BONUS
+FROM EMPLOYEE;
+SELECT JOB_CODE, JOB_NAME FROM JOB;
+SELECT DEPT_ID, DEPT_TITLE, LOCATION_ID FROM DEPARTMENT;
+SELECT LOCAL_CODE, LOCAL_NAME FROM LOCATION;
+SELECT SAL_LEVEL, MIN_SAL, MAX_SAL FROM SAL_GRADE;
+
+-- 테이블 : USER_INFO, REVIEW, MOVIE, ACTOR, MOVIE_ACTOR
+-- 11. 영화 제목, 감독, 출연한 배우 조회
+SELECT TITLE, DIRECTOR, NAME 
+FROM MOVIE_ACTOR
+    JOIN MOVIE USING(MOVIE_ID)
+    JOIN ACTOR USING(ACTOR_ID);
+
+-- 12. 평점이 3점 이상인 리뷰 영화 제목과 사용자 이름, 평점 조회
+SELECT TITLE, NAME, RATING
+FROM REVIEW
+    JOIN USER_INFO USING(USER_ID)
+    JOIN MOVIE USING(MOVIE_ID)
+WHERE RATING >= 3;
+
+-- 13. 사용자별 리뷰 수 조회
+SELECT NAME, COUNT(*)
+FROM REVIEW
+    JOIN USER_INFO USING(USER_ID)
+GROUP BY NAME;
+
+-- 14. 최동훈 감독의 영화에 출연한 배우 조회
+SELECT DISTINCT NAME
+FROM MOVIE_ACTOR
+    JOIN MOVIE USING(MOVIE_ID) 
+    JOIN ACTOR USING(ACTOR_ID)
+WHERE DIRECTOR = '최동훈';
+
+-- 15. 하정우가 출연한 영화 제목과 평균 평점 조회
+SELECT ACTOR_ID FROM ACTOR WHERE NAME = '하정우'; -- 3
+SELECT MOVIE_ID FROM MOVIE_ACTOR WHERE ACTOR_ID = 3; -- 9, 15, 37, 38, 43, 45
+-- 하정우가 출연한 영화들
+SELECT TITLE, AVG(RATING)
+FROM REVIEW 
+    JOIN MOVIE USING(MOVIE_ID)
+WHERE MOVIE_ID IN (SELECT MOVIE_ID 
+                    FROM MOVIE_ACTOR 
+                    WHERE ACTOR_ID = (SELECT ACTOR_ID 
+                                        FROM ACTOR 
+                                      WHERE NAME = '하정우'))
+GROUP BY TITLE;
+
+SELECT TITLE, AVG(RATING)
+FROM MOVIE 
+    JOIN MOVIE_ACTOR USING(MOVIE_ID)
+    JOIN ACTOR USING(ACTOR_ID)
+    JOIN REVIEW USING(MOVIE_ID)
+WHERE NAME = '하정우'
+GROUP BY TITLE;  
+
+
+SELECT USER_ID, NAME, MBTI FROM USER_INFO;
+SELECT REVIEW_ID, MOVIE_ID, USER_ID, RATING, "COMMENT", REVIEW_DATE 
+FROM REVIEW;
+SELECT MOVIE_ID, TITLE, RELEASE_DATE, GENRE, DIRECTOR FROM MOVIE;
+SELECT ACTOR_ID, NAME, BIRTHDATE, NATIONALITY FROM ACTOR;
+SELECT MOVIE_ID, ACTOR_ID, ROLE FROM MOVIE_ACTOR;
+
+-- 16. MBTI별 평균 평점 조회
+SELECT MBTI,ROUND(AVG(RATING),1)
+FROM REVIEW
+ JOIN USER_INFO USING(USER_ID)
+ GROUP BY MBTI;
+
+-- 17. 각 영화별 리뷰 수와 평균 평점 조회 (리뷰 수가 1건이라도 있는 경우부터)
+SELECT TITLE, ROUND(AVG(RATING),1),COUNT("COMMENT")
+FROM REVIEW
+    JOIN MOVIE USING(MOVIE_ID)
+    GROUP BY TITLE
+    HAVING COUNT("COMMENT") > 0;
+
+-- 18. 각 배우가 출연한 영화 수 조회 (단, 3편 이상인 배우만)
+SELECT NAME,COUNT(ROLE)
+FROM MOVIE_ACTOR
+JOIN ACTOR USING(ACTOR_ID)
+JOIN MOVIE USING(MOVIE_ID)
+GROUP BY NAME
+HAVING COUNT(ROLE)>=3;
