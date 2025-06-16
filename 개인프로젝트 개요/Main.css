@@ -1,0 +1,54 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background-color: bisque;
+}
+#logo {
+  font-size: 5rem;
+  margin-bottom: 10px;
+}
+.containBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-inline: 15px;
+  background-color: whitesmoke;
+}
+
+#mainBox {
+  /* border: 2px solid rgba(); */
+  border-radius: 5%;
+}
+
+.loginBox {
+  width: 300px;
+  font-size: 1.2rem;
+  margin-block: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+#loginBtn {
+  font-size: 1.2rem;
+  border: none;
+  background-color: bisque;
+}
+
+.linkBox {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+}
+.links {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.links:hover {
+  text-decoration: underline;
+  color: black;
+}
