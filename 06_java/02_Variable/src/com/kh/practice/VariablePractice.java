@@ -95,7 +95,7 @@ public class VariablePractice {
 		double height =Double.parseDouble(sc.nextLine());
 		double area = width * height;
 		double perimeter = (width + height)*2;
-		System.out.println("면적 : " + area);
+		System.out.println("면적 : " + String.format("%.1f", area));
 		System.out.println("둘레 : " + perimeter);
 	}
 

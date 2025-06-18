@@ -320,7 +320,7 @@ public class ConditionPractice {
     	int n = sc.nextInt();
     	sc.nextLine();
     	
-    	int select = 0;
+    	
     	
     	switch(n) {
     	case 1:
