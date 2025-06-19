@@ -130,7 +130,8 @@ public class ConditionPractice {
     	else discount = 0;
     	
     	int discountCost = cost * (100-discount)/100;
-    	System.out.println(discountCost);
+    	DecimalFormat df = new DecimalFormat("###,###");
+    	System.out.println(df.format(discountCost));
     	System.out.println(discount);
     }
     
