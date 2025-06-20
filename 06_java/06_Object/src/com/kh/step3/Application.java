@@ -1,5 +1,8 @@
 package com.kh.step3;
 
+
+import java.util.Arrays;
+
 import com.kh.step3.model.Calculator;
 
 public class Application {
@@ -24,12 +27,23 @@ public class Application {
 		c.a = 10;
 		c.b = 75;
 		
-		System.out.println("더하기\t: " + c.add());
-		System.out.println("빼기\t: " + c.substract());
-		System.out.println("곱하기\t: " + c.multiply(20,35));
-		System.out.println("나누기\t: " + c.divide(39, 6));
-		System.out.println(Calculator.divide(45, 4));
+//		System.out.println("더하기\t: " + c.add());
+//		System.out.println("빼기\t: " + c.substract());
+//		System.out.println("곱하기\t: " + c.multiply(20,35));
+//		System.out.println("나누기\t: " + c.divide(39, 6));
+//		System.out.println(Calculator.divide(45, 4));
 		
+		System.out.println(c.factorial(5));
+		
+		String a ="abcde";
+		
+		String[] b = a.split("");
+		int d =b.length;
+		System.out.println(Arrays.toString(b));
+		System.out.println(Arrays.asList(a.split("")).indexOf("b"));
+		for(String str : "aaa".split("")) {
+			
+		}
 	}
 
 }

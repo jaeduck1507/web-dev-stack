@@ -4,6 +4,10 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
+import com.kh.practice.controller.RockPaperScissorController;
+import com.kh.practice.model.RockPapterScissor;
+import com.kh.practice.view.RockPaperScissorView;
+
 class LoopPractice {
 	
 	Scanner sc = new Scanner(System.in);
@@ -16,7 +20,8 @@ class LoopPractice {
 //		l.method3();
 //		l.method4();
 //		l.method5();
-		l.method6();
+//		l.method6();
+		l.method7();
 		
 	}
  
@@ -335,7 +340,13 @@ class LoopPractice {
     	
     	
     }
-
+    
+    public void method7() {
+    	
+    	RockPaperScissorView rpsView = new RockPaperScissorView();
+    	rpsView.gameStart();
+    	
+    }
 }
 
 
