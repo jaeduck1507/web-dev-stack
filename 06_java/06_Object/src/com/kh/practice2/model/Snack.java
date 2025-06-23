@@ -22,7 +22,7 @@ public class Snack {
 
 	@Override
 	public String toString() {
-		return "Snack [kind=" + kind + ", name=" + name + ", numOf=" + numOf + ", price=" + price + "]";
+		return String.format("%s(%s - %s) %d개 %d원", kind,name,flavor,numOf,price);
 	}
 
 
