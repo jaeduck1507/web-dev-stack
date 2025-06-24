@@ -5,6 +5,7 @@ package com.kh.overriding;
 import com.kh.overriding.model.Customer;
 import com.kh.overriding.model.VipCustomer;
 
+import java.awt.Window.Type;
 import java.util.Scanner;
 
 import com.kh.inheritance.model.parent.Product;
@@ -20,6 +21,7 @@ public class Application {
 	 * */
 		
 	public static void main(String[] args) {
+		
 		Scanner sc = new Scanner(System.in);
 		// 이름
 		System.out.print("이름 입력 : ");
@@ -73,6 +75,8 @@ public class Application {
 		Controller c = new Controller();
 		System.out.println(c.pay(customer1, 100000));
 		System.out.println(c.pay(customer2, 100000));
+		
+		
 	}
 	
 }
