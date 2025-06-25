@@ -1,5 +1,7 @@
 package com.kh.practice.model;
 
+
+//@Data
 public class Department {
 	private int deptNo;
 	private String deptName;
