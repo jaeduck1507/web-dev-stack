@@ -8,6 +8,7 @@ public class BookView {
 	BookController bc = new BookController();
 	Scanner sc = new Scanner(System.in);
 	boolean flag;
+	
 	public void mainView() {
 		flag = true;
 		bc.addBook();
@@ -81,7 +82,7 @@ public class BookView {
 			}
 			System.out.print("대여할 도서 번호 선택 : ");
 			int n = Integer.parseInt(sc.nextLine());
-			if(n >bc.getBooks().size() || n <= 0) {
+			if(n >bc.getBooks().size() || n < 0) {
 				System.out.println("입력이 올바르지 않습니다.");
 				return;
 				

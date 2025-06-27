@@ -22,12 +22,7 @@ public class BookController {
 	
 	
 	public boolean checkLogin(String name, int age) {
-		if(memberList == null) {
-			Member member = new Member(name,age);
-			memberList.add(member);
-			this.member = member;
-			return true;
-		}
+		
 		for(count = 0; count < memberList.size(); count++) {
 			
 			if(memberList.get(count).getName().equals(name)) {
@@ -40,7 +35,7 @@ public class BookController {
 		}
 		Member member = new Member(name,age);
 		memberList.add(member);
-		this.member = member;
+		this.member =  member;
 		return true;
 	}
 	
