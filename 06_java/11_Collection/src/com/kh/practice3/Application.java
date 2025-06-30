@@ -28,6 +28,8 @@ public class Application {
 				System.out.println("4. 특정 곡 수정");
 				System.out.println("5. 특정 곡 삭제");
 				System.out.println("6. 종료");
+				System.out.println("7. 가수명 내림차순 정렬");
+				System.out.println("8. 곡명 오름차순 정렬");
 				System.out.print("메뉴 번호 입력 : ");
 				switch(Integer.parseInt(sc.nextLine())) {
 					case 1:
@@ -48,6 +50,12 @@ public class Application {
 					case 6:
 						System.out.println("종료");
 						check = false;
+						break;
+					case 7:
+						descArtist();
+						break;
+					case 8:
+						ascSong();
 						break;
 					default: 
 						System.out.println("잘못 입력하셨습니다. 다시 입력해주세요.");
@@ -202,5 +210,18 @@ public class Application {
 		System.out.println(mc.removeMusic(keword, n));
 		
 	}
+	
+	// 가수명 내림차순 정리
+	public void descArtist() {
+		System.out.println("****** 가수명 내림차순 정렬 ******");
+		System.out.println(mc.descArtist());
+	}
 
+	
+	// 곡명 오름차순
+	public void ascSong() {
+		System.out.println("****** 곡명 오름차순 정렬 ******");
+		System.out.println(mc.ascSong());
+	}
+	
 }

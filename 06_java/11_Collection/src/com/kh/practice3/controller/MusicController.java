@@ -1,7 +1,9 @@
 package com.kh.practice3.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
+import com.kh.practice3.compare.SongAscending;
 import com.kh.practice3.model.Music;
 
 public class MusicController {
@@ -14,6 +16,7 @@ public class MusicController {
 			if(m.getArtist().equals(artist) && m.getSong().equals(song)) return "추가 실패";
 //			if(m.getSong().equals(song)) return "추가 실패";
 		}
+		
 		list.add(new Music(artist,song));
 		return "추가 성공";
 	}
@@ -79,6 +82,21 @@ public class MusicController {
 		}
 		return "삭제할 곡이 없습니다.";
 	}
+	
+	public ArrayList<Music> descArtist() {
+		ArrayList<Music> descList = (ArrayList<Music>) list.clone();
+		Collections.sort(descList);
+//		Collections.reverse(descList);
+		return descList;
+		
+	}
+	
+	public ArrayList<Music> ascSong() {
+		ArrayList<Music> ascList = (ArrayList<Music>) list.clone();
+		Collections.sort(ascList,new SongAscending());
+		return ascList;
+	}
+	
 
 	public ArrayList<Music> getList() {
 		return list;
