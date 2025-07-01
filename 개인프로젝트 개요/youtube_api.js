@@ -8,7 +8,9 @@ const dataShow = async () => {
     `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails&playlistId=${pl}&key=${apiKey}`
   );
   const data = await response.json();
-  console.log(data);
+
+  console.log(data.items[1].contentDetails.videoId);
+  // 재생목록으로 비디오 아이디 추출시 .item[index].contentDetails.videoId에 정보 담김
 };
 
 const dataShow2 = async () => {
