@@ -71,6 +71,7 @@ JOIN book b ON r.book_no = b.book_no
 JOIN member m ON m.id = r.id
 WHERE m.id = 'a';  
 DELETE FROM person WHERE id = 1;
+DELETE FROM member;
 SELECT count(id) AS cnt FROM rent WHERE id = 'a' GROUP BY id ;
 SELECT count(book_no) AS cnt FROM rent WHERE book_no = 5 GROUP BY book_no;
 
