@@ -35,16 +35,8 @@ public class RegisterServlet extends HttpServlet {
 		
 //		System.out.println(name.equals(""));
 		
-		register(id, pwd, name, age);
+		boolean check = true;
 		
-		// 3. 결과 페이지
-		
-		response.sendRedirect("result.jsp");
-		
-		
-	}
-	
-	public void register(String id, String pwd, String name, int age) {
 		member.setId(id);
 		member.setPwd(pwd);
 		member.setName(name);
@@ -53,9 +45,30 @@ public class RegisterServlet extends HttpServlet {
 		try {
 			dao.register(member);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			check =false;
 		}
+		
+		// 3. 바인딩 : 결과 페이지에 서버에서 받은 값 보내야 할 때
+//		request.setAttribute("name", name);
+		request.setAttribute("check", check);
+		
+		
+		// 4. 네비게이션 : 결과 페이지 지정
+		// 4. 결과 페이지 --> 회원가입 성공할때랑 실패할 때 페이지 구분
+		request.getRequestDispatcher("result.jsp").forward(request, response);
+		
+		// 성공
+//		if(check) {
+//			// response.sendRedirect("result.jsp"); 
+//			// 만약 결과 페이지로 서버에서 받은 값 보여주려면
+//			// -> requestDispatch forward 방식으로 보내줘야 함
+//			request.getRequestDispatcher("result.jsp").forward(request, response);
+//		}
+//		else response.sendRedirect("fail.jsp");
+		// 실패
+		
 	}
+	
+	
 
 }

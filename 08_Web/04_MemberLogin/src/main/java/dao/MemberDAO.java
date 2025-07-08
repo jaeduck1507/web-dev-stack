@@ -41,52 +41,57 @@ public class MemberDAO {
 	
 	public void register(Member member) throws SQLException {
 		Connection connect = connection();
-		String query = "INSERT INTO member VALUES(?, ?, ?, ?)";
+		String query = "INSERT INTO member VALUES(?,?,?,?)";
 		PreparedStatement ps = connect.prepareStatement(query);
 		ps.setString(1, member.getId());
 		ps.setString(2, member.getName());
 		ps.setString(3, member.getPwd());
 		ps.setInt(4, member.getAge());
 		ps.executeUpdate();
-		System.out.println("삽입완료");
 		close(ps, connect);
-		
 	}
 	
-	public ArrayList<Member> viewAllMember() throws SQLException {
-		ArrayList<Member> list = new ArrayList<Member>();
+	public Member login(String id, String pwd) throws SQLException {
 		Connection connect = connection();
+		String query = "SELECT * FROM member WHERE id = ? and pwd = ?";
+		PreparedStatement ps = connect.prepareStatement(query);
+		ps.setString(1, id);
+		ps.setString(2, pwd);
+		ResultSet rs = ps.executeQuery();
 		
+		Member user = null;
+		if(rs.next()) {
+			user = new Member(rs.getString("id"), rs.getString("name"),rs.getString("pwd"), rs.getInt("age"));
+		}
+		close(rs, ps, connect);
+		return user;
+	}
+	
+	public Member search(String id) throws SQLException {
+		Connection connect = connection();
+		String query = "SELECT * FROM member WHERE id = ?";
+		PreparedStatement ps = connect.prepareStatement(query);
+		ps.setString(1, id);
+		ResultSet rs = ps.executeQuery();
+		Member user = null;
+		if(rs.next()) {
+			user = new Member(rs.getString("id"), rs.getString("name"),rs.getString("pwd"), rs.getInt("age"));
+		}
+		close(rs, ps, connect);
+		return user;
+	}
+	
+	public ArrayList<Member> searchAll() throws SQLException {
+		ArrayList<Member> list = new ArrayList();
+		Connection connect = connection();
 		String query = "SELECT * FROM member";
 		PreparedStatement ps = connect.prepareStatement(query);
 		ResultSet rs = ps.executeQuery();
 		
 		while(rs.next()) {
-			list.add(new Member(rs.getString("id"),rs.getString("name"),rs.getString("pwd"),rs.getInt("age")));
+			list.add(new Member(rs.getString("id"), rs.getString("name"),rs.getString("pwd"), rs.getInt("age")));
 		}
 		close(rs, ps, connect);
-		
 		return list;
-	}
-	
-	public Member searchMember(String id) throws SQLException {
-		Member member =new Member();
-		Connection connect = connection();
-		
-		String query = "SELECT * FROM member WHERE id = ?";
-		PreparedStatement ps = connect.prepareStatement(query);
-		ps.setString(1, id);
-		ResultSet rs = ps.executeQuery();
-		if(rs.next()) {
-			member.setId(rs.getString("id"));
-			member.setPwd(rs.getString("pwd"));
-			member.setName(rs.getString("name"));
-			member.setAge(rs.getInt("age"));
-			close(rs, ps, connect);
-			return member;
-		}
-		close(rs, ps, connect);
-		return null;
-		
 	}
 }
