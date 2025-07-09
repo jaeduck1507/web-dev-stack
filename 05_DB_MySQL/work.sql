@@ -63,6 +63,7 @@ FOREIGN KEY (book_no) REFERENCES book(book_no);
 
 -- SELECT * FROM member WHERE id = ? and pwd = ?;
 select * from member;
+DELETE FROM member;
 select * from book;
 select * from rent;
 

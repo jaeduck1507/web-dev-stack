@@ -10,8 +10,8 @@ charset=UTF-8" pageEncoding="UTF-8"%>
   <body>
     <div class="box">
       <h1>검색</h1>
-      <%Member member = (Member)request.getAttribute("member"); %> <%if(member
-      != null){ %>
+      <%Member member = (Member)request.getAttribute("member"); %> 
+      <%if(member!= null){ %>
       <h3>검색된 아이디 : <%=member.getId() %></h3>
       <h3>이름 : <%=member.getName() %></h3>
       <h3>나이 : <%=member.getAge() %></h3>
