@@ -1,0 +1,107 @@
+-- 인적 자원 테이블!
+
+DROP TABLE performance_review;
+DROP TABLE salary_history;
+DROP TABLE leave_request;
+DROP TABLE attendance_log;
+DROP TABLE employee_info;
+DROP TABLE department;
+DROP TABLE job_position;
+
+
+-- 직원 정보 테이블
+CREATE TABLE employee_info (
+    emp_no INT AUTO_INCREMENT PRIMARY KEY,            -- 직원 고유 번호 (PK)
+    emp_id VARCHAR(50) UNIQUE NOT NULL,               -- 로그인용 아이디
+    emp_in VARCHAR(14) UNIQUE NOT NULL,               -- 주민등록번호 (예: 901010-1234567)
+    emp_pwd VARCHAR(100) NOT NULL,                    -- 비밀번호 (해시 처리 전제)
+    emp_name VARCHAR(50) NOT NULL,                    -- 이름
+    gender ENUM('M', 'F') NOT NULL,                   -- 성별
+    birthdate DATE NOT NULL,                          -- 생년월일
+    job_no INT NOT NULL,                              -- 직급 번호 (FK)
+    dept_no INT NOT NULL,                             -- 부서 번호 (FK)
+    hire_date DATE NOT NULL,                          -- 입사일
+    quit_date DATE DEFAULT NULL,                      -- 퇴사일 (NULL: 재직 중)
+    salary DECIMAL(10,2) NOT NULL,                    -- 기본급여
+    addr VARCHAR(200),                                -- 주소
+    phone VARCHAR(20),                                -- 연락처
+    email VARCHAR(100)                             	  -- 이메일
+
+    
+);
+
+-- 직급 테이블
+CREATE TABLE job_position (
+    job_no INT AUTO_INCREMENT PRIMARY KEY, -- 직급 번호
+    job_title VARCHAR(50) NOT NULL UNIQUE, -- 직급명
+    job_level INT NOT NULL, -- 직급 레벨 (낮을수록 상위)
+    description TEXT -- 직책 설명
+);
+-- 부서 테이블
+CREATE TABLE department (
+    dept_no INT AUTO_INCREMENT PRIMARY KEY, -- 부서 번호
+    dept_name VARCHAR(50) NOT NULL UNIQUE, -- 부서 이름
+    location VARCHAR(100) -- 위치
+    -- manager_emp_no INT, -- 부서장
+    -- FOREIGN KEY (manager_emp_no) REFERENCES employee_info(emp_no)
+);
+
+-- 출퇴근/근태 관리
+CREATE TABLE attendance_log (
+    att_id INT AUTO_INCREMENT PRIMARY KEY,
+    emp_no INT NOT NULL,
+    work_date DATE NOT NULL,
+    check_in TIME,
+    check_out TIME,
+    status ENUM('출근', '지각', '조퇴', '결근', '휴가') DEFAULT '출근'
+);
+
+-- 휴가 신청 테이블
+CREATE TABLE leave_request (
+    leave_id INT AUTO_INCREMENT PRIMARY KEY,
+    emp_no INT NOT NULL,
+    leave_type ENUM('연차', '병가', '경조사', '기타') NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    reason TEXT,
+    status ENUM('대기', '승인', '반려') DEFAULT '대기',
+    request_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+-- 인사 평가 테이블
+CREATE TABLE performance_review (
+    review_id INT AUTO_INCREMENT PRIMARY KEY,
+    emp_no INT NOT NULL,
+    evaluator_emp_no INT NOT NULL,
+    review_date DATE NOT NULL,
+    score INT CHECK (score BETWEEN 1 AND 5),
+    comments TEXT
+);
+
+
+-- 연봉/이력 관리 테이블
+CREATE TABLE salary_history (
+    salary_id INT AUTO_INCREMENT PRIMARY KEY,
+    emp_no INT NOT NULL,
+    change_date DATE NOT NULL,
+    old_salary DECIMAL(10,2),
+    new_salary DECIMAL(10,2),
+    reason TEXT
+);
+ALTER TABLE employee_info ADD
+FOREIGN KEY (job_no) REFERENCES job_position(job_no);
+ALTER TABLE employee_info ADD
+FOREIGN KEY (dept_no) REFERENCES department(dept_no);
+ALTER TABLE attendance_log ADD
+FOREIGN KEY (emp_no) REFERENCES employee_info(emp_no);
+ALTER TABLE leave_request ADD
+FOREIGN KEY (emp_no) REFERENCES employee_info(emp_no);
+ALTER TABLE performance_review ADD
+FOREIGN KEY (emp_no) REFERENCES employee_info(emp_no);
+ALTER TABLE performance_review ADD
+FOREIGN KEY (evaluator_emp_no) REFERENCES employee_info(emp_no);
+ALTER TABLE salary_history ADD
+FOREIGN KEY (emp_no) REFERENCES employee_info(emp_no);
+
+
