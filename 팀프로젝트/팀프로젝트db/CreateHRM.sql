@@ -53,7 +53,7 @@ CREATE TABLE attendance_log (
     work_date DATE NOT NULL,
     check_in TIME,
     check_out TIME,
-    status ENUM('출근', '지각', '조퇴', '결근', '휴가') DEFAULT '출근'
+    status ENUM('출근', '지각', '조퇴', '결근', '휴가') DEFAULT '결근' -- 출근 시간 변경 시 판별
 );
 
 -- 휴가 신청 테이블
@@ -75,12 +75,12 @@ CREATE TABLE performance_review (
     emp_no INT NOT NULL,
     evaluator_emp_no INT NOT NULL,
     review_date DATE NOT NULL,
-    score INT CHECK (score BETWEEN 1 AND 5),
+    score INT CHECK (score BETWEEN 1 AND 5), -- 평가 항목으로 세분화 하기
     comments TEXT
 );
 
 
--- 연봉/이력 관리 테이블
+-- 연봉/이력 관리 테이블 - 수당 테이블은 따로 만드는게 합리적?
 CREATE TABLE salary_history (
     salary_id INT AUTO_INCREMENT PRIMARY KEY,
     emp_no INT NOT NULL,
@@ -89,6 +89,8 @@ CREATE TABLE salary_history (
     new_salary DECIMAL(10,2),
     reason TEXT
 );
+
+-- 수당 관련 테이블 퇴사자 관리 테이블 인사이동 테이블 부서별 인건비 테이블 직급별 급여 기준 정리
 ALTER TABLE employee_info ADD
 FOREIGN KEY (job_no) REFERENCES job_position(job_no);
 ALTER TABLE employee_info ADD
