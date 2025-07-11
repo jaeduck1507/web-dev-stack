@@ -1,4 +1,4 @@
--- 인적 자원 테이블!
+-- 1. 인적 자원 테이블
 
 DROP TABLE performance_review;
 DROP TABLE salary_history;
