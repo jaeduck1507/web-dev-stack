@@ -15,8 +15,17 @@ al_no INT NOT NULL, -- 외래키 (수당 종류)
 emp_no INT NOT NULL -- 외래키 (직원)
 );
 
--- 퇴사자 관리 테이블 (애매함)
--- CREATE TABLE quitter(
-
--- );
+-- 퇴사자 관리 테이블 (애매함) -- 퇴직금 지불 여부 및 지급 금액 표시
+CREATE TABLE quitter(
+quit_no INT PRIMARY KEY,
+quit_name VARCHAR(20), -- 퇴사자 이름
+quit_in VARCHAR(20), -- 퇴사자 주민번호
+hire_date DATE, -- 퇴사자 입사일
+quit_date DATE, -- 퇴사자 퇴사일
+phone VARCHAR(20), -- 퇴사자 전화번호
+email VARCHAR(20), -- 퇴사자 이메일
+quit_pay int, -- 퇴사자 퇴직금
+quit_pay_date int, -- 퇴사자 
+emp_no INT
+);
 

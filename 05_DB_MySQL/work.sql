@@ -63,6 +63,7 @@ FOREIGN KEY (book_no) REFERENCES book(book_no);
 
 -- SELECT * FROM member WHERE id = ? and pwd = ?;
 select * from member;
+UPDATE person SET name = 'a', age = 1, addr = 'a' WHERE id = 1;
 DELETE FROM member;
 select * from book;
 select * from rent;
