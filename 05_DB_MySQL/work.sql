@@ -77,7 +77,7 @@ DELETE FROM member;
 SELECT count(id) AS cnt FROM rent WHERE id = 'a' GROUP BY id ;
 SELECT count(book_no) AS cnt FROM rent WHERE book_no = 5 GROUP BY book_no;
 
-INSERT INTO member VALUES('a', 'a', 'a', 10);
+INSERT INTO member VALUES('ba', 'a', 'a', 10);
 INSERT INTO member VALUES('admin', '관리자', '1234', 9999);
 INSERT INTO book(title, author, access_age) VALUES('a', 'a', 1);
 INSERT INTO book(title, author, access_age) VALUES('b', 'a', 1);
@@ -87,3 +87,4 @@ INSERT INTO book(title, author, access_age) VALUES('e', 'a', 1);
 INSERT INTO book(title, author, access_age) VALUES('f', 'a', 1);
 INSERT INTO rent(id, book_no) VALUES('a', '1');
 
+SELECT * FROM member where id LIKE '%a%'; 

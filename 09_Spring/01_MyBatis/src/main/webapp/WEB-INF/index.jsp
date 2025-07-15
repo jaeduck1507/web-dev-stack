@@ -20,23 +20,50 @@
 			<h3>${member.name}님 환영합니다</h3>
 			
 	<!-- 로그인한 사람의 정보 수정-->
-	<form action ="/update" method="post">
-			이름 : <input type= "text" name = "name" value = "${member.name}""><br>
-			비밀번호 : <input type= "password" name = "pwd" value = "${member.pwd}"}><br>
-			나이 : <input type= "text" name = "age" value = "${member.age}"><br>
-			<input type= "submit" name = "회원정보 수정">
-	</form>	
+			<form action ="/update" method="post">
+					이름 : <input type= "text" name = "name" value = "${member.name}""><br>
+					비밀번호 : <input type= "password" name = "pwd" value = "${member.pwd}"}><br>
+					나이 : <input type= "text" name = "age" value = "${member.age}"><br>
+					<input type= "submit" name = "회원정보 수정">
+			</form>	
+			<a href="/delete">회원탈퇴</a>
+			<h2>비밀번호만 수정</h2>
+			<form action ="/update" method="post">
+								비밀번호 : <input type= "password" name = "pwd" value = "${member.pwd}"}><br>
+								<input type= "submit" name = "비밀번호 수정">
+						</form>	
 		</c:otherwise>	
 	
 	</c:choose>
+	
+	<form action ="/search">
+				<select name = "select">
+					<option value="all">이름 또는 아이디</option>
+					<option value="id">아이디</option>
+					<option value="name">이름</option>
+				</select>
+						<input type= "text" name = "keyword" placeholder= "아이디 입력"><br>
+						<input type= "submit" name = "검색">
+				</form>	
+	
 	<!-- 회원 전체 목록-->
-	<c:forEach items = "${list}" var = "mList" varStatus = "status">
-			
-			<h3>${status.count}.</h3>
-			<h3>회원 아이디 : ${mList.id}</h3>
-			<h3>회원 이름 : ${mList.name}</h3>
-			<h3>회원 나이 : ${mList.age}</h3>
-	</c:forEach>
+	<table border="1">
+		<tr>
+			<th>아이디</th>
+			<th>비밀번호</th>
+			<th>이름</th>
+			<th>나이</th>
+		</tr>
+		${searchList}
+		<c:forEach items="${list}" var="item">
+			<tr>
+				<td>${item.id}</td>
+				<td>${item.pwd}</td>
+				<td>${item.name}</td>
+				<td>${item.age}</td>
+			</tr>
+		</c:forEach>
+	</table>
 	
 	
 </body>

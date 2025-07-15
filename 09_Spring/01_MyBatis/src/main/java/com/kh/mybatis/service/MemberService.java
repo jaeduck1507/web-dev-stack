@@ -5,8 +5,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.kh.mybatis.controller.MemberController;
 import com.kh.mybatis.mapper.MemberMapper;
+import com.kh.mybatis.model.dto.SearchDTO;
 import com.kh.mybatis.model.vo.Member;
 
 @Service
@@ -31,5 +32,14 @@ public class MemberService {
 	
 	public void update(Member member) {
 		mapper.update(member);
+	}
+	
+	public void delete(Member member) {
+		mapper.delete(member);
+	}
+	
+	public List<Member> search(SearchDTO dto) {
+		List<Member> list = mapper.search(dto);
+		return list;
 	}
 }

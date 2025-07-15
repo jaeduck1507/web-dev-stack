@@ -1,0 +1,43 @@
+:root {
+    --side-width: 250px;
+    --header-height: 50px;
+}
+/* body {
+    background-color: #ECFAE5;
+} */
+.side {
+    position: fixed;
+    background-color: #DDF6D2;
+    width: var(--side-width);
+    height: 100%;
+    color: black;
+    overflow-y: auto;  /* 스크롤 걸때 */
+    border-right: 1px solid;
+    box-sizing: border-box;
+    
+
+}
+
+.main {
+    padding-left: var(--side-width);
+    
+}
+
+.main header {
+    position: fixed;
+    background-color: #DDF6D2;
+    width: 100%;
+    height: var(--header-height);
+    border-bottom: 1px solid;
+    box-sizing: border-box;
+    
+}
+
+.main section {
+    padding-top: var(--header-height);
+    /* background-color: #ECFAE5; */
+    /* width: 100%; */
+    /* overflow-y: auto; */
+    
+    
+}
