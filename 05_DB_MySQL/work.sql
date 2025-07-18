@@ -87,4 +87,7 @@ INSERT INTO book(title, author, access_age) VALUES('e', 'a', 1);
 INSERT INTO book(title, author, access_age) VALUES('f', 'a', 1);
 INSERT INTO rent(id, book_no) VALUES('a', '1');
 
-SELECT * FROM member where id LIKE '%a%'; 
+SELECT * FROM member where id LIKE '%a%';
+SELECT EXISTS(SELECT * FROM member);
+SELECT EXISTS(SELECT * FROM member WHERE id = 'z'); 
+SELECT EXISTS(SELECT * FROM member WHERE id = 'a');

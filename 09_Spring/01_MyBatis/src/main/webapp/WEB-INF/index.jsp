@@ -47,23 +47,27 @@
 				</form>	
 	
 	<!-- 회원 전체 목록-->
-	<table border="1">
-		<tr>
-			<th>아이디</th>
-			<th>비밀번호</th>
-			<th>이름</th>
-			<th>나이</th>
-		</tr>
-		${searchList}
-		<c:forEach items="${list}" var="item">
+	<form action="/delete" method="post">
+		<table border="1">
 			<tr>
-				<td>${item.id}</td>
-				<td>${item.pwd}</td>
-				<td>${item.name}</td>
-				<td>${item.age}</td>
+				<th>아이디</th>
+				<th>비밀번호</th>
+				<th>이름</th>
+				<th>나이</th>
+				<th>삭제</th>
 			</tr>
-		</c:forEach>
-	</table>
+			<c:forEach items="${list}" var="item">
+				<tr>
+					<td>${item.id}</td>
+					<td>${item.pwd}</td>
+					<td>${item.name}</td>
+					<td>${item.age}</td>
+					<td><input type="checkbox" name = "idList" value="${item.id}"/></td>
+				</tr>
+			</c:forEach>
+		</table>
+		<input type="submit" value="삭제"/>
+	</form>
 	
 	
 </body>

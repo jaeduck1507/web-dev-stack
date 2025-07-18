@@ -42,4 +42,8 @@ public class MemberService {
 		List<Member> list = mapper.search(dto);
 		return list;
 	}
+	
+	public void selectDelete(List<String> idList) {
+		mapper.selectDelete(idList);
+	}
 }

@@ -1,14 +1,5 @@
 -- 1. 인적 자원 테이블
-DROP TABLE quitter;
-DROP TABLE bonus_payment;
-DROP TABLE bonus;
-DROP TABLE performance_review;
-DROP TABLE salary_history;
-DROP TABLE leave_request;
-DROP TABLE attendance_log;
-DROP TABLE employee_info;
-DROP TABLE department;
-DROP TABLE job_position;
+
 
 
 -- 직원 정보 테이블
@@ -37,7 +28,7 @@ CREATE TABLE job_position (
     job_no INT AUTO_INCREMENT PRIMARY KEY, -- 직급 번호
     job_title VARCHAR(50) NOT NULL UNIQUE, -- 직급명
     job_level INT NOT NULL, -- 직급 레벨 (낮을수록 상위)
-    leave_count INT,
+    leave_count INT, -- 직급별 휴가 개수
     description TEXT -- 직책 설명
 );
 -- 부서 테이블
@@ -45,8 +36,7 @@ CREATE TABLE department (
     dept_no INT AUTO_INCREMENT PRIMARY KEY, -- 부서 번호
     dept_name VARCHAR(50) NOT NULL UNIQUE, -- 부서 이름
     location VARCHAR(100) -- 위치
-    -- manager_emp_no INT, -- 부서장
-    -- FOREIGN KEY (manager_emp_no) REFERENCES employee_info(emp_no)
+    
 );
 
 -- 출퇴근/근태 관리
@@ -85,21 +75,21 @@ CREATE TABLE performance_review (
     emp_no INT NOT NULL,
     evaluator_emp_no INT NOT NULL,
     review_date DATE NOT NULL,
-    attitude_score INT CHECK (score BETWEEN 1 AND 5), -- 근무 태도 점수
-    achieve_score INT CHECK (score BETWEEN 1 AND 5), -- 성과 점수
+    attitude_score INT CHECK (attitude_score BETWEEN 1 AND 5), -- 근무 태도 점수
+    achieve_score INT CHECK (achieve_score BETWEEN 1 AND 5), -- 성과 점수
     
     comments TEXT
 );
 
 
--- 연봉/이력 관리 테이블 - 수당 테이블은 따로 만드는게 합리적?
+-- 연봉 변경 테이블
 CREATE TABLE salary_history (
     salary_id INT AUTO_INCREMENT PRIMARY KEY,
-    emp_no INT NOT NULL,
-    change_date DATE NOT NULL,
-    old_salary INT,
-    new_salary INT,
-    reason TEXT
+    emp_no INT NOT NULL, -- 직원 정보 외래키
+    change_date DATE NOT NULL, -- 바뀐 날짜
+    old_salary INT, -- 원래 연봉
+    new_salary INT, -- 새로운 연봉
+    reason TEXT -- 사유
 );
 
 -- 수당 종류 테이블
@@ -110,28 +100,22 @@ bonus_desc TEXT -- 수당 설명
 );  
 -- 수당 제공 되는 직원 정보 테이블
 CREATE TABLE bonus_payment(
-bonus_no INT AUTO_INCREMENT PRIMARY KEY,
+bonus_payment_no INT AUTO_INCREMENT PRIMARY KEY,
 payment INT NOT NULL, -- 수당 지급 금액
 pay_date DATE NOT NULL, -- 수당 지급 날짜
-al_no INT NOT NULL, -- 외래키 (수당 종류)
+bonus_no INT NOT NULL, -- 외래키 (수당 종류)
 emp_no INT NOT NULL -- 외래키 (직원)
 );
 
 -- 퇴사자 관리 테이블 (애매함) -- 퇴직금 지불 여부 및 지급 금액 표시
 CREATE TABLE quitter(
 quit_no INT PRIMARY KEY,
-quit_name VARCHAR(20), -- 퇴사자 이름
-quit_in VARCHAR(20), -- 퇴사자 주민번호 (980708-1)
-hire_date DATE, -- 퇴사자 입사일
-quit_date DATE, -- 퇴사자 퇴사일
-phone VARCHAR(20), -- 퇴사자 전화번호
-email VARCHAR(20), -- 퇴사자 이메일
 quit_pay int, -- 퇴사자 퇴직금
 quit_pay_date DATE, -- 퇴사자 퇴직금 지급날짜
 emp_no INT
 );
 
--- 수당 관련 테이블 퇴사자 관리 테이블 인사이동 테이블 부서별 인건비 테이블 직급별 급여 기준 정리
+-- 외래키 설정
 ALTER TABLE employee_info ADD
 FOREIGN KEY (job_no) REFERENCES job_position(job_no);
 ALTER TABLE employee_info ADD
@@ -140,11 +124,19 @@ ALTER TABLE attendance_log ADD
 FOREIGN KEY (emp_no) REFERENCES employee_info(emp_no);
 ALTER TABLE leave_request ADD
 FOREIGN KEY (emp_no) REFERENCES employee_info(emp_no);
+ALTER TABLE leave_remain ADD
+FOREIGN KEY (emp_no) REFERENCES employee_info(emp_no);
 ALTER TABLE performance_review ADD
 FOREIGN KEY (emp_no) REFERENCES employee_info(emp_no);
 ALTER TABLE performance_review ADD
 FOREIGN KEY (evaluator_emp_no) REFERENCES employee_info(emp_no);
 ALTER TABLE salary_history ADD
-FOREIGN KEY (emp_no) REFERENCES employee_info(emp_no);.
+FOREIGN KEY (emp_no) REFERENCES employee_info(emp_no);
+ALTER TABLE bonus_payment ADD
+FOREIGN KEY (bonus_no) REFERENCES bonus(bonus_no);
+ALTER TABLE bonus_payment ADD
+FOREIGN KEY (emp_no) REFERENCES employee_info(emp_no);
+ALTER TABLE quitter ADD
+FOREIGN KEY (emp_no) REFERENCES employee_info(emp_no);
 
 

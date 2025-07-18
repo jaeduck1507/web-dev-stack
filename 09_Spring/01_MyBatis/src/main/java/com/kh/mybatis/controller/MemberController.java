@@ -108,6 +108,13 @@ public class MemberController {
 		return "index";
 	}
 	
+	@PostMapping("/delete")
+	public String delete(@RequestParam(name = "idList", required = false) List<String> idList) {
+		if(idList == null) return "redirect:/";
+		service.selectDelete(idList);
+		return "redirect:/";
+	}
+	
 
 	
 }

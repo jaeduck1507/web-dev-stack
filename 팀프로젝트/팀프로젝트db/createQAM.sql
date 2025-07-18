@@ -14,7 +14,7 @@ product_code INT AUTO_INCREMENT PRIMARY KEY,
 product_color VARCHAR(10) NOT NULL, -- 제품 색깔(제품명에 들어가야할지?)
 product_name VARCHAR(20) NOT NULL, -- 제품명
 product_price INT NOT NULL, -- 제품 가격
-product_cost INT NOT NULL,
+product_cost INT NOT NULL, -- 단가
 product_category VARCHAR(20) NOT NULL -- 카테고리
 -- 생산 브랜드(거래사 테이블과 연관?)
 
@@ -55,6 +55,17 @@ defective_no INT AUTO_INCREMENT PRIMARY KEY,
 
 product_no INT NOT NULL -- 상품 외래키
 );
+
+ALTER TABLE product ADD
+FOREIGN KEY (product_code) REFERENCES product_name(product_code);
+ALTER TABLE qc ADD
+FOREIGN KEY (emp_no) REFERENCES employee_info(emp_no);
+ALTER TABLE qc ADD
+FOREIGN KEY (product_no) REFERENCES product(product_no);
+ALTER TABLE sale ADD
+FOREIGN KEY (product_no) REFERENCES product(product_no);
+ALTER TABLE defective ADD
+FOREIGN KEY (product_no) REFERENCES product(product_no);
 
 -- 불량품 처리 테이블
 -- CREATE TABLE defective_handle(
