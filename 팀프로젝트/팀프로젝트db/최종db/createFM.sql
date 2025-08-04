@@ -9,8 +9,8 @@ CREATE TABLE salary(
     deduction INT, -- 공제 금액
     tax INT, -- 세금
     
-    emp_no INT NOT NULL, -- 사원 번호 외래키
-    bonus_payment_no INT -- 보너스 수당 번호 외래키
+    emp_no INT NOT NULL -- 사원 번호 외래키
+    -- bonus_payment_no INT -- 보너스 수당 번호 외래키
 );
 
 -- 예산 계획
@@ -57,4 +57,20 @@ CREATE TABLE sale_manage(
     var_amount INT, -- 부가세
     total_amount INT, -- 총액
     product_code INT NOT NULL -- 품목 번호 외래키
+);
+
+-- 수당 종류 테이블 생성
+CREATE TABLE bonus (
+    bonus_no INT AUTO_INCREMENT PRIMARY KEY, -- 수당 번호 (자동 증가, 기본 키)
+    bonus_name VARCHAR(50), -- 수당 이름 (선택)
+    bonus_desc TEXT -- 수당 설명 (선택)
+);
+
+-- 수당 지급 테이블 생성
+CREATE TABLE bonus_payment (
+    bonus_payment_no INT AUTO_INCREMENT PRIMARY KEY, -- 수당 지급 번호 (자동 증가, 기본 키)
+    payment INT NOT NULL, -- 수당 금액 (필수)
+    pay_date DATE NOT NULL, -- 지급 날짜 (필수)
+    bonus_no INT NOT NULL, -- 수당 번호 (외래 키, 필수)
+    emp_no INT NOT NULL -- 직원 번호 (외래 키, 필수)
 );

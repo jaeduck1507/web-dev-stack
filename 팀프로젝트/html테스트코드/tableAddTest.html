@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <h1>테이블 열 추가/삭제 및 데이터 객체 리스트 생성 text</h1>
+    <div id = "test">
+        <button id = "btn2">addRowTest</button>
+        <!-- <button id = "btn3">removeRowTest</button> -->
+        <table border="1" id = "result">
+            <tr>
+                <th>a</th>
+                <th>b</th>
+                <th>c</th>
+                <th>삭제</th>
+                <input type="date" name="" id="">
+
+            </tr>
+           
+            
+        </table>
+        <button id = "btn">rowToObjTest</button>
+        
+    </div>
+
+    <input type="month" name="" id="">
+
+    <script>
+        var count = 0;
+        function addRow() {
+            $("#result").append('<tr></tr>');
+            for(var i = 0; i < 3; i++) {
+                $("#result tr").eq(-1).append('<td><input type="text"></td>');
+            }
+            $("#result tr").eq(-1).append('<td><button class="btn4">rowToObjTest</button></td>');
+        }
+
+        $(document).on("click", ".btn4", function() {
+            if($("#result tr").length > 2) $(this).parent().parent().remove();
+        });
+
+        addRow();
+
+        $("#btn2").click(() => {
+            
+            addRow();
+        });
+
+        // $("#btn3").click(() => {
+            // if($("#result tr").length > 2) $("#result tr").eq(-1).remove();
+            // $("#result").append('<tr><th>a</th><th>b</th><th>c</th></tr>');
+        // });
+
+        $("#btn").click(() => {
+            // const list2 = $("#result tr").eq(1).find("td").eq(0).find("input").val();
+            const table = $("#result tr");
+            const list = [];
+            // console.log(list2);
+            // console.log(table.length);
+            for(var i = 1; i < table.length; i++){
+                const obj ={};
+                for(var j = 0; j <3; j++) {
+                    if(j === 0) obj.a = $("#result tr").eq(i).find("td").eq(j).find("input").val();
+                    if(j === 1) obj.b = $("#result tr").eq(i).find("td").eq(j).find("input").val();
+                    if(j === 2) obj.c = $("#result tr").eq(i).find("td").eq(j).find("input").val();
+                    // console.log($("#result tr").eq(i).find("td").eq(j).text());
+                }
+                list.push(obj);
+            }
+            console.log(list);
+        });
+
+
+    </script>
+</body>
+</html>

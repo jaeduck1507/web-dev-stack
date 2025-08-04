@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+
+<input list="comboList" id="combo2" placeholder="검색 또는 선택" />
+<datalist id="comboList">
+    <option value="aa" data-productCode ="" data-productColor="" data-product=""
+    data-productCost="" data-productCategory="" ></option>
+    <option value="bb" data-productCode ="" data-productColor="" data-product=""
+    data-productCost="" data-productCategory="" ></option>
+    <option value="cc" data-productCode ="" data-productColor="" data-product=""
+    data-productCost="" data-productCategory="" ></option>
+    <option value="dd" data-productCode ="" data-productColor="" data-product=""
+    data-productCost="" data-productCategory="" ></option>
+    
+</datalist>
+
+
+<table border="1" id = "result">
+            <tr>
+                <th>상품 이름</th>
+                <th>상품 코드</th>
+                <th>상품 색깔</th>
+                <th>상품 가격</th>
+                <th>상품 단가</th>
+                <th>상품 카테고리</th>
+                <th>부가세</th>
+                <th>수량</th>
+                <th>총액</th>
+                <th>매입일</th>
+            </tr>
+           
+            
+</table>
+
+<script>
+$('#combo2').change( (e) => {
+  const val = $(e.target).val();
+const opt = $('#comboList option').filter((a, o) => o.value === val);
+
+if (!opt.length) {
+  console.warn('없는 값:', val);
+  return;
+}
+
+const code     = opt.data('productCode');
+const color    = opt.data('productColor');
+const name     = opt.data('productName');
+const cost     = opt.data('productCost');
+const category = opt.data('productCategory');
+
+console.log({ val, code, color, name, cost, category });
+
+});
+
+</script>
+</body>
+</html>

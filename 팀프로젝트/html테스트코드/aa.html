@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>인적자원 관리 UI</title>
+  <style>
+    /* --- 전역 --- */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Apple SD Gothic Neo","맑은 고딕",sans-serif; background: #f5f5f5; color: #333; }
+    a { text-decoration: none; color: inherit; }
+
+    /* --- 레이아웃 그리드 --- */
+    .wrapper {
+      display: grid;
+      grid-template-rows: 60px 1fr;
+      grid-template-columns: 200px 1fr;
+      height: 100vh;
+    }
+    header {
+      grid-column: 1 / -1;
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+    nav.sidebar {
+      background: #68a05a;
+      padding: 20px;
+      color: #fff;
+    }
+    main {
+      padding: 20px;
+      overflow: auto;
+    }
+
+    /* --- 헤더 --- */
+    .logo { font-size: 1.5rem; font-weight: bold; color: #68a05a; }
+    .user-info { display: flex; align-items: center; }
+    .user-info .avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%; background: #ccc;
+      margin-right: 10px;
+    }
+    .user-info .details .name { font-weight: bold; }
+    .user-info .details .email { font-size: 0.85rem; color: #666; }
+
+    /* --- 사이드바 --- */
+    .sidebar ul { list-style: none; }
+    .sidebar li { margin-bottom: 12px; cursor: pointer; position: relative; padding-left: 10px; }
+    .sidebar li.active::before {
+      content: "▶";
+      position: absolute; left: 0; top: 0;
+      font-size: 0.8rem;
+    }
+    .sidebar li > ul { margin-top: 6px; margin-left: 16px; }
+    .sidebar li > ul li { margin-bottom: 6px; font-size: 0.9rem; }
+
+    /* --- 툴바 --- */
+    .toolbar {
+      display: flex; align-items: center;
+      margin-bottom: 12px;
+    }
+    .toolbar .btn {
+      padding: 6px 12px;
+      border: 1px solid #68a05a;
+      background: #fff; color: #68a05a;
+      border-radius: 16px;
+      cursor: pointer;
+      margin-right: 10px;
+      font-size: 0.9rem;
+    }
+    .toolbar .btn--primary {
+      background: #68a05a; color: #fff; border: none;
+    }
+    .toolbar select,
+    .toolbar input[type="text"] {
+      height: 32px;
+      padding: 0 8px;
+      margin-right: 8px;
+      border: 1px solid #ccc;
+      border-radius: 16px;
+      font-size: 0.9rem;
+      outline: none;
+    }
+    .toolbar select:focus,
+    .toolbar input:focus {
+      border-color: #68a05a;
+      box-shadow: 0 0 0 2px rgba(104,160,90,0.2);
+    }
+
+    /* --- 테이블 --- */
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 8px 4px;
+      background: transparent;
+    }
+    thead th {
+      background: #e0e0e0;
+      border-radius: 16px;
+      padding: 8px 12px;
+      text-align: left;
+      font-weight: normal;
+    }
+    tbody td {
+      background: #f0f0f0;
+      border-radius: 12px;
+      padding: 8px 12px;
+      vertical-align: middle;
+    }
+    tbody tr:last-child td { border-bottom: none; }
+
+    /* 체크박스 중앙 배치 */
+    td:first-child { text-align: center; }
+    td:first-child input { transform: scale(1.2); }
+
+    /* --- 페이지네이션 --- */
+    .pagination {
+      margin-top: 12px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    .pagination a,
+    .pagination span {
+      margin: 0 4px;
+      padding: 4px 8px;
+      border-radius: 8px;
+    }
+    .pagination a { cursor: pointer; }
+    .pagination .current {
+      background: #68a05a;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    /* --- 삭제 버튼 --- */
+    .delete-btn {
+      margin-top: 12px;
+      float: right;
+      padding: 6px 16px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 16px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <!-- 헤더 -->
+    <header>
+      <div class="logo">{Ctrl S}</div>
+      <div class="user-info">
+        <div class="avatar"></div>
+        <div class="details">
+          <div class="name">@user_id</div>
+          <div class="email">user_id@email.com</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- 사이드바 -->
+    <nav class="sidebar">
+      <ul>
+        <li class="active">인적자원관리
+          <ul>
+            <li>사원 정보 관리</li>
+            <li>출결/근태 관리</li>
+            <li>휴가/연차 관리</li>
+            <li>조직/직책 관리</li>
+            <li>성과/인사 평가 관리</li>
+            <li>급여/퇴직금 관리</li>
+            <li>퇴사자/이직자 관리</li>
+          </ul>
+        </li>
+        <li>품질보증관리</li>
+        <li>재무관리</li>
+      </ul>
+    </nav>
+
+    <!-- 본문 -->
+    <main>
+      <h2>인적자원관리 &gt; 사원 정보 관리</h2>
+      <div class="toolbar">
+        <button class="btn btn--primary">신규등록</button>
+        <select><option>전체</option></select>
+        <select><option>부서</option></select>
+        <select><option>직급</option></select>
+        <select><option>재직상태</option></select>
+        <input type="text" placeholder="이름">
+        <button class="btn">조회</button>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th><input type="checkbox"></th>
+            <th>사번</th>
+            <th>이름</th>
+            <th>연락처</th>
+            <th>이메일</th>
+            <th>입사일</th>
+            <th>근속연수</th>
+            <th>부서</th>
+            <th>직급</th>
+            <th>재직상태</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- 예시 1행 -->
+          <tr>
+            <td><input type="checkbox"></td>
+            <td>1</td>
+            <td>이○○</td>
+            <td>010-xxxx-xxxx</td>
+            <td>user_id@email.com</td>
+            <td>2025-07-21</td>
+            <td>12</td>
+            <td>인사</td>
+            <td>팀장</td>
+            <td>재직</td>
+          </tr>
+          <!-- 빈 행 -->
+          <tr>
+            <td><input type="checkbox"></td>
+            <td>2</td><td></td><td></td><td></td>
+            <td></td><td></td><td></td><td></td><td></td>
+          </tr>
+          <!-- …총 10행까지 -->
+        </tbody>
+      </table>
+
+      <div class="pagination">
+        << <a class="current">1</a> <a>2</a> <a>3</a> … <a>10</a> >>
+      </div>
+      <button class="delete-btn">삭제</button>
+    </main>
+  </div>
+</body>
+</html>

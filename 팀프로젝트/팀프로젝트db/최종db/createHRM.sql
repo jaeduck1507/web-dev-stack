@@ -41,10 +41,10 @@ CREATE TABLE department (
 CREATE TABLE attendance_log (
     att_id INT AUTO_INCREMENT PRIMARY KEY, -- 출퇴근 기록 번호 (자동 증가, 기본 키)
     emp_no INT NOT NULL, -- 직원 번호 (외래 키, 필수)
-    work_date DATE NOT NULL, -- 근무 날짜 (필수)
-    check_in TIME, -- 출근 시간 (선택)
+    work_date DATE NOT NULL DEFAULT (CURRENT_DATE), -- 근무 날짜 (필수)
+    check_in TIME DEFAULT (CURRENT_TIMESTAMP), -- 출근 시간 (선택)
     check_out TIME, -- 퇴근 시간 (선택)
-    status VARCHAR(10) DEFAULT '결근' CHECK (status IN ('출근', '지각', '조퇴', '결근', '휴가')) -- 근태 상태 (제한된 값)
+    status VARCHAR(10) CHECK (status IN ('휴가')) -- 근태 상태 휴가아니면 null로
 );
 
 -- 휴가 신청 테이블 생성
@@ -72,7 +72,7 @@ CREATE TABLE performance_review (
     review_id INT AUTO_INCREMENT PRIMARY KEY, -- 평가 번호 (자동 증가, 기본 키)
     emp_no INT NOT NULL, -- 평가 대상 직원 번호 (외래 키, 필수)
     evaluator_emp_no INT NOT NULL, -- 평가자 직원 번호 (자기 자신 제외, 필수)
-    review_date DATE NOT NULL, -- 평가 날짜 (필수)
+    review_date DATE NOT NULL DEFAULT (CURRENT_DATE), -- 평가 날짜 (필수)
     attitude_score INT CHECK (attitude_score BETWEEN 1 AND 5), -- 근무 태도 점수 (1~5)
     achieve_score INT CHECK (achieve_score BETWEEN 1 AND 5), -- 성과 점수 (1~5)
     comments TEXT -- 평가 코멘트 (선택)
@@ -88,21 +88,7 @@ CREATE TABLE salary_history (
     reason TEXT -- 변경 사유 (선택)
 );
 
--- 수당 종류 테이블 생성
-CREATE TABLE bonus (
-    bonus_no INT AUTO_INCREMENT PRIMARY KEY, -- 수당 번호 (자동 증가, 기본 키)
-    bonus_name VARCHAR(50), -- 수당 이름 (선택)
-    bonus_desc TEXT -- 수당 설명 (선택)
-);
 
--- 수당 지급 테이블 생성
-CREATE TABLE bonus_payment (
-    bonus_payment_no INT AUTO_INCREMENT PRIMARY KEY, -- 수당 지급 번호 (자동 증가, 기본 키)
-    payment INT NOT NULL, -- 수당 금액 (필수)
-    pay_date DATE NOT NULL, -- 지급 날짜 (필수)
-    bonus_no INT NOT NULL, -- 수당 번호 (외래 키, 필수)
-    emp_no INT NOT NULL -- 직원 번호 (외래 키, 필수)
-);
 
 -- 퇴사자 관리 테이블 생성
 CREATE TABLE quitter (

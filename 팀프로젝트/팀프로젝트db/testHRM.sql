@@ -6,6 +6,7 @@ SELECT * FROM leave_request;
 SELECT * FROM leave_remain;
 SELECT * FROM performance_review;
 SELECT * FROM salary_history;
+SELECT * FROM quitter;
 
 -- 사원 기본 정보 조회
 SELECT emp_name, phone, email,hire_date, dept_name, job_title ,TRUNCATE(datediff(current_date, hire_date)/365,0) as '근속년수'
