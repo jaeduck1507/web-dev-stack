@@ -12,6 +12,7 @@ const emailText = document.querySelector("#emailText");
 const callNumText = document.querySelector("#callNumText");
 const newB = document.querySelector("#newB");
 const cancel = document.querySelector("#cancel");
+
 checkList = [false, false, false, false, false, false]; // 각 입력 부분 완성 되어있는지 확인
 
 const clickJoin = () => {

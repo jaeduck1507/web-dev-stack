@@ -8,6 +8,7 @@ DROP TABLE sale;
 DROP TABLE qc;
 DROP TABLE product;
 DROP TABLE product_name;
+DROP TABLE brand;
 DROP TABLE quitter;
 DROP TABLE bonus_payment;
 DROP TABLE bonus;

@@ -19,21 +19,66 @@
 	</div>
 	
 	<div id = "a2" >
-		<a href="/logout" >로그아웃</a><br>
-		<a href="/mypage">마이페이지</a><br>
+		<a href="/logout" id="logout">로그아웃</a><br>
+		<a href="/mypage" id="mypage">마이페이지</a><br>
 	
-		<a href="/admin">관리자페이지</a><br>
 	</div>
+		<a href="/admin" id="admin">관리자페이지</a><br>
 	<script>
 		const token = localStorage.getItem("token");
-		console.log(token);
 		if(token == null) {
 			$("#a1").show();
 			$("#a2").hide();
+			$("#admin").hide();
+			
 		} else {
 			$("#a1").hide();
 			$("#a2").show();
+			$("#admin").hide();
+			$.ajax({
+				url:'/check',
+				type:'get',
+				data:{token : token},
+				success:function(data) {
+					//console.log(data);
+					if(data.role == "ROLE_ADMIN") $("#admin").show();
+				}
+			})
 		}
+		
+		$("#logout").click((e) => {
+			e.preventDefault();
+			localStorage.removeItem("token");
+			location.reload();
+			
+		});
+		
+		$("#mypage").click((e) => {
+			e.preventDefault();
+			$.ajax({
+				url:'/mypage',
+				type:'get',
+				beforeSend: function(xhr) {
+					xhr.setRequestHeader('Authorization','Bearer ' + token);
+				},
+				success:function(data) {
+					$('body').html(data);
+				}
+			})
+		});
+		$("#admin").click((e) => {
+			e.preventDefault();
+			$.ajax({
+				url:'/admin',
+				type:'get',
+				beforeSend: function(xhr) {
+					xhr.setRequestHeader('Authorization','Bearer ' + token);
+				},
+				success:function(data) {
+					$('body').html(data);
+				}
+			})
+		});
 	</script>
 </body>
 </html>

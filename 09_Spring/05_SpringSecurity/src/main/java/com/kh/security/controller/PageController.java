@@ -12,6 +12,11 @@ public class PageController {
 
 	@GetMapping("/")
 	public String index() {
+		Object auth = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		System.out.println(auth.toString().equals("anonymousUser"));
+		if(auth.toString().equals("anonymousUser")) return "redirect:/login";
+		//User user = (User) auth.getPrincipal();
+		//System.out.println(user);
 		return "index";
 	}
 	

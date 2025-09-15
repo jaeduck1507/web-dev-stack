@@ -24,6 +24,7 @@ public class SecurityConfig {
 					.defaultSuccessUrl("/mypage")
 					
 					
+					
 				)
 				.logout(logout -> 
 					logout.logoutUrl("/logout")

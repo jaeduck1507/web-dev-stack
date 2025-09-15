@@ -26,5 +26,7 @@
 	<sec:authorize access="hasRole('ADMIN')">
 	<a href="/admin">관리자페이지</a><br>
 	</sec:authorize>
+	
+	
 </body>
 </html>

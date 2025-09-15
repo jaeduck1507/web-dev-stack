@@ -1,5 +1,3 @@
-
-
 -- user 아이디 패스워드 생성
 CREATE TABLE user(
 	username VARCHAR(50) UNIQUE NOT NULL,
@@ -83,18 +81,6 @@ CREATE TABLE performance_review (
     achieve_score INT CHECK (achieve_score BETWEEN 1 AND 5), -- 성과 점수 (1~5)
     comments TEXT -- 평가 코멘트 (선택)
 );
-
--- 연봉 변경 테이블 생성
--- CREATE TABLE salary_history (
---     salary_id INT AUTO_INCREMENT PRIMARY KEY, -- 연봉 변경 번호 (자동 증가, 기본 키)
---     emp_no INT NOT NULL, -- 직원 번호 (외래 키, 필수)
---     change_date DATE NOT NULL, -- 연봉 변경 날짜 (필수)
---     old_salary INT, -- 이전 연봉 (선택)
---     new_salary INT, -- 새 연봉 (0 이상, 필수)
---     reason TEXT -- 변경 사유 (선택)
--- );
-
-
 
 -- 퇴사자 관리 테이블 생성
 CREATE TABLE quitter (

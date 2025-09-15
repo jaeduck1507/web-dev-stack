@@ -43,6 +43,41 @@
       console.log(personObj);
       personObj.hello();
       console.log(personObj.name);
+      personObj.age += 1;
+      console.log(personObj.age);
+
+      const salayPagingDTO = {
+        offset: 0,
+        limit: 5,
+        page: 1,
+        pageSig: 10,
+        endPage: this.pageSize,
+        startPage: this.endPage - this.pageSize + 1,
+        prev : false,
+        next : false,
+        total: 0,
+
+        setTotal() {
+          this.total = total;
+          this.offset = (page - 1) * limit;
+
+          this.endPage = Math.ceil(this.page / this.pageSize) * this.pageSize;
+          this.startPage = this.endPage - this.pageSize + 1;
+
+          // 자바: lastPage = ceil(total / limit)
+          const lastPage = Math.ceil(this.total / this.limit);
+
+          if (lastPage < this.endPage) {
+            this.endPage = lastPage;
+          }
+
+          this.prev = this.startPage > 1;
+          this.next = this.endPage < lastPage;
+        }
+
+      };
+
+
     </script>
 
     <h2>1. 객체 생성과 속성/함수 추가</h2>

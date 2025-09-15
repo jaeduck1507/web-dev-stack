@@ -20,6 +20,7 @@ public class UserService implements UserDetailsService{
 	@Autowired
 	private PasswordEncoder bcpe;
 	
+	
 	public void register(User user) {
 //		System.out.println("암호화 전 : " + user.getPwd());
 		user.setPwd(bcpe.encode(user.getPwd()));
