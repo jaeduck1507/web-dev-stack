@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="d">
+	
+	<select id="dept_list" resultType="vo.DeptVO">
+		select * from dept
+	</select>
+	
+	<insert id="dept_insert" parameterType="vo.DeptVO">
+		insert into dept values( #{deptno}, #{dname}, #{loc} )
+	</insert>
+	
+	<delete id="dept_del" parameterType="int">
+		delete from dept where deptno=#{deptno}
+	</delete>
+	
+	<select id="modify_one" resultType="vo.DeptVO" parameterType="int">
+	
+		select * from dept where deptno=#{deptno}
+	
+	</select>
+	
+	<update id="upd_fin" parameterType="java.util.Map">
+		update dept set deptno=#{deptno}, dname=#{dname}, loc=#{loc}
+		where deptno=#{ori_deptno}
+	</update>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="m">
+	
+	<select id="selectList" resultType="vo.MemberVO">
+		select * from member order by idx desc
+	</select>
+	
+	<insert id="insert_member" parameterType="vo.MemberVO">
+		insert into member values(
+			seq_member_idx.nextVal, 
+			#{name}, 
+			#{id}, 
+			#{pwd}, 
+			#{email}, 
+			#{addr}
+		)
+	</insert>
+	
+	<delete id="del_member" parameterType="int">
+		delete from member where idx=#{idx}
+	</delete>
+	
+	<select id="search_idx" 
+	        resultType="vo.MemberVO"
+	        parameterType="int">
+	
+		select * from member where idx=#{idx}
+	
+	</select>
+	
+	<update id="modify_fin" parameterType="vo.MemberVO">
+		update member set name=#{name}, id=#{id}, pwd=#{pwd}, 
+						  email=#{email}, addr=#{addr}
+						  where idx=#{idx}
+	</update>
+	
+	<select id="selectOne" resultType="vo.MemberVO"
+	        parameterType="String">
+	
+		select * from member where id=#{id}
+	
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
