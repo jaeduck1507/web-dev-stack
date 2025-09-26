@@ -39,5 +39,12 @@ public class ProductDAO {
 		   sqlSession.close();
 		   return res;
 	   }
+	   
+	   public ProductVO selectOne(int idx) {
+		   SqlSession sqlSession = factory.openSession();
+		   ProductVO vo = sqlSession.selectOne("p.selectOne",idx);
+		   sqlSession.close();
+		   return vo;
+	   }
 }
 
