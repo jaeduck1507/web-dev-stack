@@ -32,6 +32,11 @@
 			
 		}
 	}
+	
+	// 수정 폼으로 전환
+	function modify(idx) {
+		location.href = 'modify_form.do?idx=' + idx;
+	}
 </script>
 </head>
 <body>
@@ -55,7 +60,7 @@
 				<td>${m.email }</td>
 				<td>${m.addr }</td>
 				<td>
-					<input type="button" value="수정">
+					<input type="button" value="수정" onclick="modify('${m.idx}')">
 					<input type="button" value="삭제" onclick="deleteMember('${m.idx}')">
 				</td>
 			</tr>

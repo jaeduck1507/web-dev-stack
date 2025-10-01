@@ -34,4 +34,14 @@ public class MemberDAO {
 		return res;
 	}
 	
+	public MemberVO modifyForm(int idx) {
+		MemberVO vo = sqlSession.selectOne("m.modify_form", idx);
+		return vo;
+	}
+	
+	public int modifyFin(MemberVO vo) {
+		int res = sqlSession.insert("m.modify_fin",vo);
+		return res;
+	}
+	
 }

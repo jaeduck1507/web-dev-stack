@@ -19,7 +19,7 @@ public class MemberController {
 		this.member_dao = member_dao;
 	}
 	
-	@RequestMapping("list.do")
+	@RequestMapping(value={"/","list.do"})
 	public String memberList(Model model) {
 		List<MemberVO> list = member_dao.memberList();
 		model.addAttribute("list", list);
@@ -34,6 +34,7 @@ public class MemberController {
 	@RequestMapping("register.do")
 	public String memberRegister(MemberVO vo) {
 		
+		// 비밀번호 암호화
 		PwdBcrypt pbc = new PwdBcrypt();
 		String encodePwd = pbc.encodingPwd(vo.getPwd());
 		vo.setPwd(encodePwd);
@@ -53,5 +54,23 @@ public class MemberController {
 		}
 		
 		return result;
+	}
+	
+	@RequestMapping("modify_form.do")
+	public String modifyForm(int idx, Model model) {
+		
+		MemberVO vo = member_dao.modifyForm(idx);
+		model.addAttribute("vo", vo);
+		return "member/modify_form";
+	}
+	
+	@RequestMapping("/modify_fin.do")
+	public String modifyFin(MemberVO vo) {
+		PwdBcrypt pbc = new PwdBcrypt();
+		String encodePwd = pbc.encodingPwd(vo.getPwd());
+		vo.setPwd(encodePwd);
+		
+		member_dao.modifyFin(vo);
+		return "redirect:/list.do";
 	}
 }

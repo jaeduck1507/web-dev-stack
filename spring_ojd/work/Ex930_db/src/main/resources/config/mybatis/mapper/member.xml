@@ -27,6 +27,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		delete from member where idx= #{idx}
 	</delete>
 
+	<select id="modify_form" resultType="vo.MemberVO" parameterType="int">
+		select * from member where idx=#{idx}
+	</select>
+	
+	
 </mapper>
 
 

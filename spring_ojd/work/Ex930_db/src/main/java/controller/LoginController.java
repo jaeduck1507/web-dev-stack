@@ -17,7 +17,7 @@ public class LoginController {
 		this.member_dao = member_dao;
 	}
 
-	@RequestMapping(value = { "/", "/login.do" })
+	@RequestMapping("/login.do" )
 	public String loginForm() {
 		return "login/login_form";
 	}
