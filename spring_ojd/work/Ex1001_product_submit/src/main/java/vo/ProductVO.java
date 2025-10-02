@@ -1,9 +1,12 @@
 package vo;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class ProductVO {
 	private int idx, p_price, p_saleprice;
 	private String category, p_num, p_name, p_company;
-//	private String p_image_s, p_image_l
+	private String p_image_s, p_image_l;
+	private MultipartFile p_image_s_file, p_image_l_file;
 	private String p_content, p_date;
 	private int sale_rate;
 	
@@ -56,18 +59,18 @@ public class ProductVO {
 	public void setP_company(String p_company) {
 		this.p_company = p_company;
 	}
-//	public String getP_image_s() {
-//		return p_image_s;
-//	}
-//	public void setP_image_s(String p_image_s) {
-//		this.p_image_s = p_image_s;
-//	}
-//	public String getP_image_l() {
-//		return p_image_l;
-//	}
-//	public void setP_image_l(String p_image_l) {
-//		this.p_image_l = p_image_l;
-//	}
+	public String getP_image_s() {
+		return p_image_s;
+	}
+	public void setP_image_s(String p_image_s) {
+		this.p_image_s = p_image_s;
+	}
+	public String getP_image_l() {
+		return p_image_l;
+	}
+	public void setP_image_l(String p_image_l) {
+		this.p_image_l = p_image_l;
+	}
 	public String getP_content() {
 		return p_content;
 	}
@@ -80,12 +83,26 @@ public class ProductVO {
 	public void setP_date(String p_date) {
 		this.p_date = p_date;
 	}
+	public MultipartFile getP_image_s_file() {
+		return p_image_s_file;
+	}
+	public void setP_image_s_file(MultipartFile p_image_s_file) {
+		this.p_image_s_file = p_image_s_file;
+	}
+	public MultipartFile getP_image_l_file() {
+		return p_image_l_file;
+	}
+	public void setP_image_l_file(MultipartFile p_image_l_file) {
+		this.p_image_l_file = p_image_l_file;
+	}
 	@Override
 	public String toString() {
 		return "ProductVO [idx=" + idx + ", p_price=" + p_price + ", p_saleprice=" + p_saleprice + ", category="
-				+ category + ", p_num=" + p_num + ", p_name=" + p_name + ", p_company=" + p_company + ", p_content="
-				+ p_content + ", p_date=" + p_date + ", sale_rate=" + sale_rate + "]";
+				+ category + ", p_num=" + p_num + ", p_name=" + p_name + ", p_company=" + p_company + ", p_image_s="
+				+ p_image_s + ", p_image_l=" + p_image_l + ", p_image_s_file=" + p_image_s_file + ", p_image_l_file="
+				+ p_image_l_file + ", p_content=" + p_content + ", p_date=" + p_date + ", sale_rate=" + sale_rate + "]";
 	}
+	
 	
 	
 	

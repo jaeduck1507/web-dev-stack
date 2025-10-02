@@ -21,6 +21,10 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	
+	<!-- Autowired 사용할 수 있게 해주는 속성 -->
+	<context:annotation-config />
+	
 	<!-- DeptController 생성 및 dao를 인젝션으로 받는다 -->
 	<beans:bean class="controller.VisitController">
 		<beans:constructor-arg ref="visit_daoBean"/>

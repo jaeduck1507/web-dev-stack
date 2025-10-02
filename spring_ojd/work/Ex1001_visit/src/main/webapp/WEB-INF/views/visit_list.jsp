@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	<script src="/member/resources/js/httpRequest.js"></script>
+	<script src="/visit/resources/js/httpRequest.js"></script>
 	<style>
 		p {
 			margin: 0;
@@ -82,6 +82,7 @@
 				<div class="visit_box">
 					<div style="background:skyblue">
 						<p>${v.content}</p>
+						<img src="resources/upload/${v.filename}">
 					</div>
 					<div style="background:fuchsia">
 						작성자:${v.name} (${v.ip})

@@ -11,19 +11,30 @@
 			alert('비밀번호를 입력해주세요');
 			return;
 		}
-		f.method = 'post';
+		if(f.file.value == '') {
+			alert('사진을 넣어주세용');
+			return;
+		}
+		
 		f.action = 'visit_register.do';
 		f.submit();
 	}
 </script>
 </head>
 <body>
-	<form>
+	<form method="post" enctype="multipart/form-data">
 		<table border="1">
 			<tr>
 				<th>작성내용</th>
 				<td>
 					<textarea rows="4" cols="50" name="content"></textarea>
+				</td>
+			</tr>
+			
+			<tr>
+				<th>사진</th>
+				<td>
+					<input type="file" name="file">
 				</td>
 			</tr>
 			

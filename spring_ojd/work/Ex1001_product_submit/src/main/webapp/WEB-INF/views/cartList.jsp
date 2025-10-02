@@ -59,8 +59,7 @@
 			<tr align="center">
 				<td>${ vo.p_num }</td>
 				<td>
-					<%-- <img src="images/${ vo.p_image_s }" width="50"/> --%>
-					이미지이미지
+					<img src="resources/upload/${ vo.p_image_s }" width="50"/>
 				</td>
 				<td>${ vo.p_name }</td>
 				<td>

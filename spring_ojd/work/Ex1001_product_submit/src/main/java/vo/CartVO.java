@@ -4,7 +4,7 @@ public class CartVO {
 	private int idx, c_idx, p_price, p_saleprice;
 	private int amount, m_idx, c_cnt;
 	private String p_num, p_name;
-//	private String p_image_s;
+	private String p_image_s;
 	
 	
 	public int getIdx() {
@@ -61,12 +61,12 @@ public class CartVO {
 	public void setP_name(String p_name) {
 		this.p_name = p_name;
 	}
-//	public String getP_image_s() {
-//		return p_image_s;
-//	}
-//	public void setP_image_s(String p_image_s) {
-//		this.p_image_s = p_image_s;
-//	}
+	public String getP_image_s() {
+		return p_image_s;
+	}
+	public void setP_image_s(String p_image_s) {
+		this.p_image_s = p_image_s;
+	}
 	
 	
 	

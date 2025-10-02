@@ -20,7 +20,7 @@
 	<body>
 		<jsp:include page="index.jsp"/>
 		
-		<form>
+		<form method="post" enctype="multipart/form-data">
 		
 		<table border="1"
 			   align="center"
@@ -84,19 +84,19 @@
 				</td>
 			</tr>
 		
-			<!-- <tr>
+			<tr>
 				<td>작은사진(썸네일)</td>
 				<td>
-					<input type="file" name="p_image_s">
+					<input type="file" name="p_image_s_file">
 				</td>
 			</tr>
 		
 			<tr>
 				<td>큰 사진(상세보기)</td>
 				<td>
-					<input type="file" name="p_image_l">
+					<input type="file" name="p_image_l_file">
 				</td>
-			</tr> -->
+			</tr>
 		
 			<tr>
 				<td colspan="2">

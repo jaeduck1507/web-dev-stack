@@ -21,6 +21,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			p_company,
 			p_price,
 			p_saleprice,
+			p_image_s,
+			p_image_l, 
 			p_content,
 			p_date
 		) 
@@ -32,6 +34,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			#{p_company}, 
 			#{p_price}, 
 			#{p_saleprice}, 
+			#{p_image_s}, 
+			#{p_image_l}, 
 			#{p_content}, 
 			sysdate
 		)

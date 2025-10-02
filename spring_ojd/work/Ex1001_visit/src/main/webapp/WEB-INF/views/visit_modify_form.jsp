@@ -8,20 +8,29 @@
 <title>Insert title here</title>
 <script>
 	function send(f) {
-		f.method = 'get';
 		f.action = 'visit_modify.do';
 		f.submit();
 	}
 </script>
 </head>
 <body>
-	<form>
+	<form method="post" enctype="multipart/form-data">
 		
 		<table border="1">
 			<tr>
 				<th>작성내용</th>
 				<td>
 					<textarea rows="4" cols="50" name="content">${vo.content}</textarea>
+				</td>
+			</tr>
+			
+			<tr>
+				<th>사진</th>
+				<td>
+				<img src="resources/upload/${vo.filename}">
+					<input type="file" name="file">
+					<input type="hidden" name="filename" value="${vo.filename}">
+					
 				</td>
 			</tr>
 			

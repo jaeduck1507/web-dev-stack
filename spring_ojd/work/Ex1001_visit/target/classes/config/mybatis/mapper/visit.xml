@@ -15,7 +15,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			#{content},
 			#{pwd},
 			#{ip},
-			sysdate
+			sysdate,
+			#{filename}
 		)
 	</insert>
 	
@@ -28,7 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 	
 	<update id="visit_modify" parameterType="visit">
-		update visit set content=#{content}, name=#{name}, ip=#{ip}, regdate=sysdate where idx=#{idx}
+		update visit set content=#{content}, name=#{name}, ip=#{ip}, regdate=sysdate, filename=#{filename} where idx=#{idx}
 	</update>
 	
 </mapper>

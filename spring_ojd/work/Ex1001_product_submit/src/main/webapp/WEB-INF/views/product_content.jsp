@@ -9,7 +9,7 @@
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
 		
-		<script src="/member/resources/js/httpRequest.js"></script>
+		<script src="/product/resources/js/httpRequest.js"></script>
 		
 		<script>
 			function addCart(idx, m_idx){
@@ -90,8 +90,7 @@
 			
 			<tr>
 				<td colspan="2" align="center">
-					<%-- <img src="images/${ vo.p_image_l }" width="500"/> --%>
-					이미지이미지
+					<img src="resources/upload/${ vo.p_image_l }" width="500"/>
 					<br><br>
 					<pre>${ vo.p_content }</pre> 
 				</td>

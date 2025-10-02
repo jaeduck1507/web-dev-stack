@@ -21,6 +21,8 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<context:annotation-config />
+	
 	<!-- DeptController 생성 및 dao를 인젝션으로 받는다 -->
 	<beans:bean class="controller.ProductController">
 		<beans:constructor-arg ref="product_daoBean"/>

@@ -25,7 +25,7 @@
 			<c:forEach var="p" items="${ list }">
 				<tr align="center">
 					<td>${p.p_num}</td>
-					<td>이미지 추후 추가</td>
+					<td><img src="resources/upload/${p.p_image_s}"></td>
 					<td><a href="view.do?idx=${p.idx}">${p.p_name}</a></td>
 					<td><del><fmt:formatNumber value="${p.p_price}"/>원</del><br> <fmt:formatNumber value="${p.p_saleprice}"/>원 <br> <font color="red"> (${p.sale_rate}%) </font> </td>
 				

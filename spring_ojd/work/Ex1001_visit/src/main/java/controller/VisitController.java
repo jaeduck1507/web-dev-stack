@@ -1,14 +1,19 @@
 package controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import dao.VisitDAO;
 import util.PwdBcrypt;
@@ -17,6 +22,10 @@ import vo.VisitVO;
 @Controller
 public class VisitController {
 	VisitDAO visit_dao;
+	
+	@Autowired
+	ServletContext app;
+	
 	
 	// 생성자 함수
 	public VisitController(VisitDAO visit_dao) {
@@ -41,9 +50,17 @@ public class VisitController {
 	// 방명록 등록 기능
 	@RequestMapping("/visit_register.do")
 	public String visitRegister(VisitVO vo, HttpServletRequest request) {
+		System.out.println(vo.getFile().isEmpty());
+		// 방명록 비밀번호 암호화
 		PwdBcrypt pbc = new PwdBcrypt();
 		vo.setIp(request.getRemoteAddr());
 		vo.setPwd(pbc.encodingPwd(vo.getPwd()));
+		
+		// 파일경로 저장
+		vo.setFilename(fileUpload(vo.getFile()));
+		
+		
+		
 		visit_dao.visitRegister(vo);
 		return "redirect:/";
 	}
@@ -99,8 +116,47 @@ public class VisitController {
 	@RequestMapping("visit_modify.do")
 	public String visitModify(VisitVO vo, HttpServletRequest request) {
 		vo.setIp(request.getRemoteAddr());
+		
+		if(!vo.getFile().isEmpty()) {
+			vo.setFilename(fileUpload(vo.getFile()));
+		}
+		
 		visit_dao.visitModify(vo);
 		return "redirect:/";
+	}
+	
+	
+	// 파일 업로드 메소드
+	public String fileUpload(MultipartFile file) {
+		String webPath = "/resources/upload/";
+		String savePath = app.getRealPath(webPath);
+		
+		String filename = "no_file";
+		
+		if(!file.isEmpty()) {
+			
+			filename = file.getOriginalFilename();
+			
+			File saveFile = new File(savePath,filename);
+			if(!saveFile.exists()) {
+				saveFile.mkdirs();
+			} else {
+				long time = System.currentTimeMillis();
+				filename = String.format("%d_%s",time,filename );
+				saveFile = new File(savePath,filename);
+			}
+			
+			try {
+				file.transferTo(saveFile);
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+			
+		}
+		
+		
+		
+		return filename;
 	}
 	
 	
