@@ -79,7 +79,7 @@
 					</form>
 				</td>
 				
-				<td>${ vo.c_cnt * vo.p_saleprice }</td> 
+				<td> <fmt:formatNumber value="${ vo.c_cnt * vo.p_saleprice }"/> </td> 
 				
 				<td>
 					<input type="button" value="삭제"

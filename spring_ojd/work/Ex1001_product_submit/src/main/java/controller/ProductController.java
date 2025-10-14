@@ -68,6 +68,9 @@ public class ProductController {
 			String webPath = "/resources/upload/";
 			String savePath = app.getRealPath(webPath);
 			
+			
+			System.out.println(file.getContentType());
+			
 			String filename = "no_file";
 			
 			if(!file.isEmpty()) {

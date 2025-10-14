@@ -82,6 +82,21 @@ public class VisitController {
 		if(delCheck == 0) {
 			res = "error"; // 삭제 실패시 error 전송
 		}
+		
+		if(!checkingVo.getFilename().equals("no_file")) {
+			String webPath = "/resources/upload/";
+			String savePath = app.getRealPath(webPath);
+			
+			String filename = savePath + checkingVo.getFilename();
+			
+			File file = new File(filename);
+			
+			if(file.exists()) {
+				file.delete();
+			}
+			
+		}
+		
 		res = "yes"; // 삭제 성공 시 yes 전송
 		
 		return res;

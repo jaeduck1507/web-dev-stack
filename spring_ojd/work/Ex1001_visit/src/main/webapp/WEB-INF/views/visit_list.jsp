@@ -82,7 +82,9 @@
 				<div class="visit_box">
 					<div style="background:skyblue">
 						<p>${v.content}</p>
-						<img src="resources/upload/${v.filename}">
+						<c:if test="${v.filename ne 'no_file'}">
+							<img src="resources/upload/${v.filename}">
+						</c:if>
 					</div>
 					<div style="background:fuchsia">
 						작성자:${v.name} (${v.ip})
