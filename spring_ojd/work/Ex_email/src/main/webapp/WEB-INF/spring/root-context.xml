@@ -4,7 +4,10 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
+
+	<!-- mailsender Bean 등록
 		
+	 -->		
 		<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 			<property name="host" value="smtp.naver.com"/>
 			<property name="port" value="465"/>
@@ -23,6 +26,10 @@
 			
 			
 		</bean>
+		
+		<!-- mailsender Bean 등록한것을 파라미터로 가지는 생성자 service.MailSendService bean 등록
+		
+	 -->		
 		
 		<bean id="mss" class="service.MailSendService">
 			<constructor-arg ref="mailSender"/>
