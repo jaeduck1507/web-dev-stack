@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script>
+        function del(id){
+            if( confirm("정말로 삭제하실래요?") ){
+                location.href="/delete?id="+id;
+            }
+        }
+    </script>
+
+</head>
+<body>
+    <table border="1">
+        <tr>
+            <th>#</th>
+            <td th:text="${vo.id}"></td>
+        </tr>
+
+        <tr>
+            <th>제목</th>
+            <td th:text="${vo.title}"></td>
+        </tr>
+
+        <tr>
+            <th>내용</th>
+            <td th:text="${vo.description}"
+                style="white-space:pre"></td>
+        </tr>
+
+        <tr>
+            <th>작성일</th>
+            <td th:text="${vo.created}"></td>
+        </tr>
+
+        <tr>
+            <th>수정일</th>
+            <td th:text="${vo.updated}"></td>
+        </tr>
+    </table>
+
+    <input type="button" value="목록으로"
+           th:onclick="|location.href='@{/list}'|"/>
+
+    <input type="button" value="수정"
+           th:onclick="|location.href='@{/edit( id=${vo.id} )}'|">
+
+    <input type="button" value="삭제"
+           th:onclick="|del(${vo.id})|">
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

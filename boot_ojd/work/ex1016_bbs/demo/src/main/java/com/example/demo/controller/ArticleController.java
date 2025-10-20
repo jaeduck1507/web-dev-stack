@@ -42,7 +42,7 @@ public class ArticleController {
     @GetMapping("/add")
     public String articleAdd(Integer member_id,Model model) {
         model.addAttribute("member_id",member_id);
-        
+
         return "article-add";
     }
 

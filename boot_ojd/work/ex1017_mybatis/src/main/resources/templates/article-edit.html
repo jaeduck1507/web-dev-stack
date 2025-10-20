@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function send(f) {
+            f.submit();
+        }
+    </script>
+</head>
+    <body>
+        <form th:action="@{/update}" method="post">
+            <input type="hidden" th:value="${vo.id}" name="id"/>
+            <table>
+                <tr>
+                    <th>#</th>
+                    <td th:text="${vo.id}"></td>
+                </tr>
+
+                <tr>
+                    <th>제목</th>
+                    <td>
+                        <input th:value="${vo.title}" name="title">
+                    </td>
+                </tr>
+                <tr>
+                    <th>내용</th>
+                    <td>
+                        <textarea th:text="${vo.description}" name="description" rows="5" cols="50"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <th>작성일</th>
+                    <td th:text="${vo.created}"></td>
+                </tr>
+                <tr>
+                    <th>수정일</th>
+                    <td th:text="${vo.updated}"></td>
+                </tr>
+
+            </table>
+
+            <input type="button" value="확인" th:onclick="send(this.form)">
+            <input type="button" value="목록으로" th:onclick="|history.back()|">
+
+        </form>
+    </body>
+</html>
