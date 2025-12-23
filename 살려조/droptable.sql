@@ -1,0 +1,27 @@
+drop table item_income;
+drop table transport_income;
+drop table payment_fee;
+drop table salary;
+drop table add_transport;
+drop table purchase;
+drop table transaction;
+
+drop table item_service;
+drop table transport_service;
+drop table project_member;
+drop table project;
+drop table service_management;
+drop table booking;
+drop table rent_reservation;
+drop table location;
+drop table user;
+drop table schedule;
+drop table item;
+drop table transport;
+drop table item_info;
+drop table item_category;
+drop table attendance;
+drop table leaved;
+drop table employee;
+drop table department;
+drop table job;
